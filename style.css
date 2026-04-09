@@ -1,24 +1,57 @@
 :root {
-    --primary: #4a90e2;
-    --success: #2ecc71;
-    --error: #e74c3c;
-    --bg: #f4f7f6;
+    --primary: #6c5ce7;
+    --success: #00b894;
+    --error: #d63031;
+    --bg: #f0f2f5;
 }
 
-body { font-family: 'Segoe UI', sans-serif; background: var(--bg); display: flex; justify-content: center; padding: 20px; }
+body { 
+    font-family: 'Segoe UI', sans-serif; 
+    background: var(--bg); 
+    display: flex; 
+    justify-content: center; 
+    padding: 20px;
+}
 
-.container { width: 100%; max-width: 800px; background: white; padding: 30px; border-radius: 15px; shadow: 0 10px 25px rgba(0,0,0,0.1); }
+.container { 
+    width: 100%; 
+    max-width: 800px; 
+    background: white; 
+    padding: 30px; 
+    border-radius: 20px; 
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
+}
 
-#kazanim-tag { background: #eee; padding: 5px 10px; border-radius: 5px; font-size: 0.8rem; color: #666; }
+.menu-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.topic-btn {
+    padding: 25px;
+    border: 2px solid #eee;
+    border-radius: 15px;
+    background: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.topic-btn:hover { background: var(--primary); color: white; transform: translateY(-3px); }
 
 .option-btn { 
-    display: block; width: 100%; padding: 15px; margin: 10px 0; border: 2px solid #ddd; 
-    border-radius: 8px; cursor: pointer; transition: 0.3s; text-align: left;
+    display: block; width: 100%; padding: 15px; margin: 10px 0; 
+    border: 2px solid #ddd; border-radius: 10px; cursor: pointer; font-size: 16px;
 }
 
-.option-btn:hover { border-color: var(--primary); background: #f0f7ff; }
+.hidden { display: none; }
 
-.correct { background: var(--success) !important; color: white; border-color: var(--success); }
-.wrong { background: var(--error) !important; color: white; border-color: var(--error); }
-
-#progress-bar { height: 10px; background: var(--primary); width: 0%; transition: 0.5s; border-radius: 5px; }
+#image-container img {
+    display: block;
+    margin: 20px auto;
+    border: 2px solid #eee;
+    border-radius: 10px;
+}

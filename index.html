@@ -3,223 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Üçgenler Geometri Dünyası</title>
-    <style>
-        :root {
-            --primary: #6c5ce7;
-            --success: #00b894;
-            --error: #ff7675;
-            --bg: #f0f2f5;
-            --altin: #fdcb6e;
-        }
-
-        body { 
-            font-family: 'Segoe UI', sans-serif; 
-            background: var(--bg); 
-            display: flex; justify-content: center; padding: 20px;
-        }
-
-        .container { 
-            width: 100%; max-width: 800px; background: white; 
-            padding: 30px; border-radius: 20px; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
-            text-align: center;
-        }
-
-        .menu-grid {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px;
-        }
-
-        .topic-btn, .option-btn {
-            padding: 20px; border: 2px solid #eee; border-radius: 15px;
-            background: #fff; font-size: 16px; font-weight: bold;
-            cursor: pointer; transition: 0.3s;
-        }
-
-        .topic-btn:hover, .option-btn:hover { background: var(--primary); color: white; }
-
-        .hidden { display: none; }
-
-        #image-container img {
-            display: block; margin: 20px auto; border-radius: 10px; max-width: 100%;
-        }
-
-        /* --- SVG Katlama Alanı --- */
-        #svg-folding-area {
-            width: 100%; max-width: 400px; height: 300px;
-            margin: 20px auto; background: #fff; border: 2px dashed #ccc;
-            border-radius: 15px; display: block;
-        }
-
-        @keyframes pırpır_animation {
-            0% { transform: scaleX(1); }
-            50% { transform: scaleX(0.1); }
-            100% { transform: scaleX(1); }
-        }
-
-        .triangle-folding-pırpır {
-            animation: pırpır_animation 1.2s ease-in-out;
-            transform-origin: 100px 220px;
-        }
-
-        #info-desc {
-            background: #fff9e6; padding: 15px; border-radius: 10px;
-            border-left: 5px solid var(--altin); margin: 15px 0; font-weight: bold;
-        }
-
-        #hint-text { color: var(--error); margin: 10px 0; font-style: italic; }
-    </style>
+    <title>Üçgenler Geometri Dünyası | LGS Hazırlık</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="container">
-    <div id="menu-area">
-        <h1>△ Geometri Kampı</h1>
-        <p>LGS Üçgenler Ünitesini Fethetmeye Hazır Mısın?</p>
-        <div class="menu-grid">
-            <button class="topic-btn" onclick="startQuiz('yardimci')">📏 Yardımcı Elemanlar</button>
-            <button class="topic-btn" onclick="startQuiz('esitsizlik')">📐 Üçgen Eşitsizliği</button>
-            <button class="topic-btn" onclick="startQuiz('aci-kenar')">💡 Açı-Kenar İlişkisi</button>
-            <button class="topic-btn" onclick="startQuiz('pisagor')">⚓ Pisagor Bağıntısı</button>
-            <button class="topic-btn" onclick="openInfo()" style="grid-column: span 2; background: var(--altin);">📖 Bilgi Köşesi (İnteraktif Katlama)</button>
+    <div class="container">
+        <div id="menu-area">
+            <div style="text-align: center; margin-bottom: 30px;">
+                <span style="background: var(--altin); color: #2d3436; padding: 5px 15px; border-radius: 20px; font-weight: bold; font-size: 14px;">M.8.3.1. Üçgenler</span>
+                <h1 style="margin-top: 15px;">△ Geometri Kampı</h1>
+                <p>LGS Üçgenler Ünitesini İnteraktif Şekilde Fethet!</p>
+            </div>
+            
+            <div class="menu-grid">
+                <button class="topic-btn" onclick="startQuiz('yardimci')">
+                    <span style="display: block; font-size: 24px; margin-bottom: 10px;">📏</span>
+                    Yardımcı Elemanlar
+                </button>
+                <button class="topic-btn" onclick="startQuiz('esitsizlik')">
+                    <span style="display: block; font-size: 24px; margin-bottom: 10px;">📐</span>
+                    Üçgen Eşitsizliği
+                </button>
+                <button class="topic-btn" onclick="startQuiz('aci-kenar')">
+                    <span style="display: block; font-size: 24px; margin-bottom: 10px;">💡</span>
+                    Açı-Kenar İlişkisi
+                </button>
+                <button class="topic-btn" onclick="startQuiz('pisagor')">
+                    <span style="display: block; font-size: 24px; margin-bottom: 10px;">⚓</span>
+                    Pisagor Bağıntısı
+                </button>
+                
+                <button class="topic-btn" onclick="openInfo()" style="grid-column: span 2; background: var(--altin); border-color: #f1c40f; color: #2d3436; margin-top: 10px;">
+                    📖 Bilgi Köşesi: İnteraktif Katlama Uygulaması
+                </button>
+            </div>
+
+            <footer style="margin-top: 40px; font-size: 12px; color: #b2bec3;">
+                Matematik Öğretmeni Adayı Esra tarafından geliştirilmiştir.
+            </footer>
+        </div>
+
+        <div id="quiz-area" class="hidden">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <span id="kazanim-tag" style="font-size: 12px; color: var(--primary); font-weight: bold;"></span>
+                <button onclick="location.reload()" style="background: none; border: 1px solid #ddd; padding: 5px 10px; border-radius: 10px; cursor: pointer;">✖ Kapat</button>
+            </div>
+
+            <div id="question-container">
+                <div id="image-container">
+                    </div>
+                <h3 id="question-text" style="margin: 20px 0; line-height: 1.5;">Soru Yükleniyor...</h3>
+                <div id="options-container">
+                    </div>
+            </div>
+            
+            <p id="hint-text" class="hidden"></p>
+            
+            <button id="next-btn" class="hidden" style="background: var(--success); color: white; width: 100%; padding: 18px; border: none; border-radius: 15px; font-size: 18px; font-weight: bold; cursor: pointer; margin-top: 20px; box-shadow: 0 5px 15px rgba(0, 184, 148, 0.3);">
+                Tebrikler! Sonraki Soruya Geç ➔
+            </button>
+        </div>
+
+        <div id="info-area" class="hidden">
+            <h2 style="color: var(--primary); margin-bottom: 5px;">📐 İnteraktif Katlama Köşesi</h2>
+            <p style="font-size: 14px; color: #636e72; margin-bottom: 20px;">Üçgeni katlayarak yardımcı elemanları keşfet.</p>
+            
+            <div style="background: white; border-radius: 20px; padding: 10px; box-shadow: inset 0 0 10px rgba(0,0,0,0.05);">
+                <svg id="svg-folding-area" viewBox="0 0 200 250"></svg>
+            </div>
+            
+            <div id="info-desc">Uygulamayı başlatmak için bir eleman seçin.</div>
+            
+            <div class="menu-grid" style="margin-top: 20px;">
+                <button class="option-btn" onclick="animateFold('yukseklik')">
+                    <strong>Yükseklik</strong><br><small>(Diklik Oluşturur)</small>
+                </button>
+                <button class="option-btn" onclick="animateFold('aciortay')">
+                    <strong>Açıortay</strong><br><small>(Açıyı Böler)</small>
+                </button>
+                <button class="option-btn" onclick="animateFold('kenarortay')">
+                    <strong>Kenarortay</strong><br><small>(Kenarı Böler)</small>
+                </button>
+            </div>
+            
+            <button onclick="location.reload()" style="margin-top: 30px; background: none; border: none; color: var(--primary); font-weight: bold; cursor: pointer; font-size: 16px; text-decoration: underline;">
+                ⬅ Ana Menüye Dön
+            </button>
         </div>
     </div>
 
-    <div id="quiz-area" class="hidden">
-        <div id="image-container"></div>
-        <h3 id="question-text">Soru Yükleniyor...</h3>
-        <div id="options-container"></div>
-        <p id="hint-text" class="hidden"></p>
-        <button id="next-btn" class="hidden" style="background:var(--success); color:white; padding:15px; border:none; border-radius:10px; cursor:pointer;">Sonraki Soru ➔</button>
-        <br><br>
-        <button onclick="location.reload()" style="background:none; border:none; color:gray; cursor:pointer;">✖ Menüye Dön</button>
-    </div>
-
-    <div id="info-area" class="hidden">
-        <h2>📐 İnteraktif Katlama Köşesi</h2>
-        <svg id="svg-folding-area" viewBox="0 0 200 250"></svg>
-        <div id="info-desc">Harflere ve işaretlere dikkat ederek butonlara bas!</div>
-        <div class="menu-grid">
-            <button class="option-btn" onclick="animateFold('yukseklik')">Yükseklik (AH)</button>
-            <button class="option-btn" onclick="animateFold('aciortay')">Açıortay (AN)</button>
-            <button class="option-btn" onclick="animateFold('kenarortay')">Kenarortay (AD)</button>
-        </div>
-        <br>
-        <button onclick="location.reload()" style="background:none; border:none; color:var(--primary); cursor:pointer; font-weight:bold;">⬅ Geri Dön</button>
-    </div>
-</div>
-
-<script>
-const allQuestions = {
-    yardimci: [
-        { id: 1, text: "Soruyu resme göre cevaplayınız:", image: "images/yukseklik1.png", options: ["A) 32", "B) 28", "C) 24", "D) 18"], answer: "A) 32", hints: ["6x24 = 8x? bağıntısını kur."] },
-        { id: 2, text: "Soruyu resme göre cevaplayınız:", image: "images/yukseklik2.png", options: ["A) 4,8", "B) 5,2", "C) 9,6", "D) 10,4"], answer: "C) 9,6", hints: ["12x16 = 20xh hesabını yap."] },
-        { id: 6, text: "Soruyu resme göre cevaplayınız:", image: "images/yukseklik6.png", options: ["A) 14", "B) 15", "C) 16", "D) 17"], answer: "B) 15", hints: ["Birim say (3, 5, 7) ve topla."] }
-    ],
-    esitsizlik: [], "aci-kenar": [], pisagor: []
-};
-
-let currentQuestions = [];
-let currentIdx = 0;
-let wrongAttempts = 0;
-
-function startQuiz(topic) {
-    currentQuestions = allQuestions[topic];
-    if(!currentQuestions || currentQuestions.length === 0) { alert("Hazırlanıyor..."); return; }
-    currentIdx = 0;
-    document.getElementById("menu-area").classList.add("hidden");
-    document.getElementById("quiz-area").classList.remove("hidden");
-    loadQuestion();
-}
-
-function loadQuestion() {
-    const q = currentQuestions[currentIdx];
-    document.getElementById("question-text").innerText = q.text;
-    document.getElementById("image-container").innerHTML = `<img src="${q.image}">`;
-    const opts = document.getElementById("options-container");
-    opts.innerHTML = "";
-    q.options.forEach(opt => {
-        const b = document.createElement("button");
-        b.className = "option-btn"; b.innerText = opt;
-        b.onclick = () => {
-            if(opt === q.answer) {
-                b.style.background = "var(--success)"; b.style.color = "white";
-                document.getElementById("next-btn").classList.remove("hidden");
-            } else {
-                b.style.background = "var(--error)"; b.style.color = "white";
-                wrongAttempts++;
-                document.getElementById("hint-text").innerText = "💡 " + q.hints[0];
-                document.getElementById("hint-text").classList.remove("hidden");
-            }
-        };
-        opts.appendChild(b);
-    });
-    document.getElementById("hint-text").classList.add("hidden");
-    document.getElementById("next-btn").classList.add("hidden");
-}
-
-document.getElementById("next-btn").onclick = () => {
-    currentIdx++;
-    if(currentIdx < currentQuestions.length) loadQuestion();
-    else { alert("Konu bitti!"); location.reload(); }
-};
-
-// --- BİLGİ KÖŞESİ SİSTEMİ ---
-function openInfo() {
-    document.getElementById("menu-area").classList.add("hidden");
-    document.getElementById("info-area").classList.remove("hidden");
-    resetFoldingArea();
-}
-
-function resetFoldingArea() {
-    const svg = document.getElementById("svg-folding-area");
-    svg.innerHTML = "";
-    const ns = "http://www.w3.org/2000/svg";
-    const tri = document.createElementNS(ns, "polygon");
-    tri.setAttribute("points", "100,50 30,220 170,220");
-    tri.style.fill = "rgba(108, 92, 231, 0.1)";
-    tri.style.stroke = "var(--primary)";
-    tri.style.strokeWidth = "3";
-    svg.appendChild(tri);
-    
-    const letters = [{t:"A",x:95,y:40},{t:"B",x:15,y:235},{t:"C",x:175,y:235}];
-    letters.forEach(l => {
-        const txt = document.createElementNS(ns, "text");
-        txt.setAttribute("x", l.x); txt.setAttribute("y", l.y);
-        txt.style.fontWeight = "bold"; txt.textContent = l.t;
-        svg.appendChild(txt);
-    });
-}
-
-function animateFold(type) {
-    resetFoldingArea();
-    const svg = document.getElementById("svg-folding-area");
-    const ns = "http://www.w3.org/2000/svg";
-    const line = document.createElementNS(ns, "line");
-    line.style.stroke = "var(--error)"; line.style.strokeWidth = "3"; line.style.strokeDasharray = "5,5";
-    
-    if(type === 'yukseklik') {
-        line.setAttribute("x1", "100"); line.setAttribute("y1", "50");
-        line.setAttribute("x2", "100"); line.setAttribute("y2", "220");
-        const h = document.createElementNS(ns, "text"); h.setAttribute("x", "95"); h.setAttribute("y", "235"); h.textContent = "H"; svg.appendChild(h);
-        const sq = document.createElementNS(ns, "rect"); sq.setAttribute("x", "100"); sq.setAttribute("y", "210"); sq.setAttribute("width", "10"); sq.setAttribute("height", "10"); sq.style.fill="none"; sq.style.stroke="var(--altin)"; svg.appendChild(sq);
-        document.getElementById("info-desc").innerText = "Yükseklik: A köşesinden tabana dik iner.";
-    }
-    if(type === 'aciortay') {
-        line.setAttribute("x1", "100"); line.setAttribute("y1", "50");
-        line.setAttribute("x2", "125"); line.setAttribute("y2", "220");
-        document.getElementById("info-desc").innerText = "Açıortay: A açısını iki eş parçaya böler.";
-    }
-    if(type === 'kenarortay') {
-        line.setAttribute("x1", "100"); line.setAttribute("y1", "50");
-        line.setAttribute("x2", "100"); line.setAttribute("y2", "220");
-        document.getElementById("info-desc").innerText = "Kenarortay: Karşı kenarı (BC) iki eş parçaya böler.";
-    }
-
-    svg.appendChild(line);
-    svg.classList.add("triangle-folding-pırpır");
-    setTimeout(() => svg.classList.remove("triangle-folding-pırpır"), 1200);
-}
-</script>
+    <script src="script.js"></script>
 </body>
 </html>

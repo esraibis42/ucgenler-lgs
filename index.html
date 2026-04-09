@@ -18,7 +18,6 @@
 
         body { 
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            /* Arka plana geometrik kareli defter dokusu ekliyoruz */
             background-color: var(--arka-plan);
             background-image: linear-gradient(#d1d1d1 1px, transparent 1px), linear-gradient(90deg, #d1d1d1 1px, transparent 1px);
             background-size: 30px 30px;
@@ -39,9 +38,9 @@
             border: 4px solid var(--ana-renk);
             position: relative;
             overflow: hidden;
+            text-align: center;
         }
 
-        /* Köşeye dekoratif bir üçgen ekleyelim */
         .container::before {
             content: "";
             position: absolute;
@@ -106,22 +105,11 @@
             background: #f9f8ff;
         }
 
-        #next-btn {
-            background: var(--dogru);
-            color: white;
-            padding: 15px 40px;
-            border: none;
-            border-radius: 50px;
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 5px 15px rgba(0, 184, 148, 0.4);
-            margin-top: 20px;
-        }
-
         .hidden { display: none; }
 
         #image-container img {
+            max-width: 100%;
+            height: auto;
             border: 5px solid #eee;
             border-radius: 20px;
             margin: 20px 0;
@@ -136,6 +124,42 @@
             font-style: italic;
             border-radius: 5px;
         }
+
+        /* --- BİLGİ KÖŞESİ VE KATLAMA ANİMASYONU --- */
+        .animation-box {
+            height: 250px;
+            background: #f9f9f9;
+            border-radius: 20px;
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            padding-bottom: 20px;
+            perspective: 1000px;
+        }
+
+        .triangle-paper {
+            width: 0;
+            height: 0;
+            border-left: 100px solid transparent;
+            border-right: 100px solid transparent;
+            border-bottom: 170px solid var(--ikincil);
+            position: relative;
+            transition: 1s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-origin: center bottom;
+        }
+
+        .fold-line {
+            position: absolute;
+            width: 2px;
+            background: var(--yanlis);
+            left: -1px;
+            bottom: 0;
+            height: 0;
+            transition: 0.5s ease 1s;
+        }
+
+        .folding { transform: rotateY(180deg) scaleX(0.2); }
     </style>
 </head>
 <body>
@@ -150,24 +174,36 @@
                 <button class="topic-btn" onclick="startQuiz('esitsizlik')">📐 Üçgen Eşitsizliği</button>
                 <button class="topic-btn" onclick="startQuiz('aci-kenar')">💡 Açı-Kenar İlişkisi</button>
                 <button class="topic-btn" onclick="startQuiz('pisagor')">⚓ Pisagor Bağıntısı</button>
+                <button class="topic-btn" onclick="openInfo()" style="grid-column: span 2; background: var(--altin); color: #2d3436;">📖 Bilgi Köşesi (İnteraktif Katlama)</button>
             </div>
         </div>
 
         <div id="quiz-area" class="hidden">
-            <div id="progress-container" style="color:var(--ana-renk); font-weight:bold; margin-bottom:10px;"></div>
-            <div id="question-container">
-                <div id="image-container"></div>
-                <h3 id="question-text">Soru Hazırlanıyor...</h3>
-                <div id="options-container"></div>
-            </div>
-            
+            <div id="image-container"></div>
+            <h3 id="question-text">Soru Hazırlanıyor...</h3>
+            <div id="options-container"></div>
             <p id="hint-text" class="hidden"></p>
-            
-            <button id="next-btn" class="hidden">Sonraki Soru ➔</button>
-            
+            <button id="next-btn" class="hidden" style="background:var(--dogru); color:white; padding:15px 40px; border:none; border-radius:50px; cursor:pointer; font-weight:bold;">Sonraki Soru ➔</button>
             <div style="margin-top: 30px;">
-                <button onclick="location.reload()" style="color:#b2bec3; background:none; border:none; cursor:pointer; font-weight:bold;">✖ Çalışmayı Durdur ve Menüye Dön</button>
+                <button onclick="location.reload()" style="color:#b2bec3; background:none; border:none; cursor:pointer; font-weight:bold;">✖ Menüye Dön</button>
             </div>
+        </div>
+
+        <div id="info-area" class="hidden">
+            <h2 style="color: var(--ana-renk);">Kağıt Katlama Simülasyonu</h2>
+            <div class="animation-box">
+                <div id="paper-triangle" class="triangle-paper">
+                    <div id="fold-line" class="fold-line"></div>
+                </div>
+            </div>
+            <div id="info-desc" style="margin-bottom: 20px; font-weight: bold; color: var(--ana-renk); min-height: 1.5em;">Butonlara basarak katlamayı izle!</div>
+            <div class="menu-grid">
+                <button class="option-btn" onclick="animateFold('yukseklik')">Yükseklik Oluştur</button>
+                <button class="option-btn" onclick="animateFold('aciortay')">Açıortay Oluştur</button>
+                <button class="option-btn" onclick="animateFold('kenarortay')">Kenarortay Oluştur</button>
+            </div>
+            <br>
+            <button onclick="location.reload()" style="background:none; border:none; color:var(--ana-renk); cursor:pointer; font-weight:bold; font-size: 16px;">⬅ Ana Menüye Dön</button>
         </div>
     </div>
 

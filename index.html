@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Üçgenler Maratonu | LGS 2026</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Üçgenler LGS Hazırlık</h1>
+            <div id="progress-bar-container">
+                <div id="progress-bar"></div>
+            </div>
+        </header>
+
+        <main id="quiz-area">
+            <div id="question-container">
+                <span id="kazanim-tag">M.8.3.1.x</span>
+                <p id="question-text">Soru buraya gelecek...</p>
+                <div id="image-container"></div>
+                <div id="options-container">
+                    </div>
+            </div>
+
+            <div id="feedback-area">
+                <p id="hint-text"></p>
+                <button id="next-btn" class="hidden">Sıradaki Soru</button>
+            </div>
+        </main>
+
+        <aside id="stats">
+            <p>Doğru: <span id="correct-count">0</span></p>
+            <p>Kalan Soru: <span id="remaining-count">50</span></p>
+        </aside>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

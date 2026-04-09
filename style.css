@@ -1,0 +1,24 @@
+:root {
+    --primary: #4a90e2;
+    --success: #2ecc71;
+    --error: #e74c3c;
+    --bg: #f4f7f6;
+}
+
+body { font-family: 'Segoe UI', sans-serif; background: var(--bg); display: flex; justify-content: center; padding: 20px; }
+
+.container { width: 100%; max-width: 800px; background: white; padding: 30px; border-radius: 15px; shadow: 0 10px 25px rgba(0,0,0,0.1); }
+
+#kazanim-tag { background: #eee; padding: 5px 10px; border-radius: 5px; font-size: 0.8rem; color: #666; }
+
+.option-btn { 
+    display: block; width: 100%; padding: 15px; margin: 10px 0; border: 2px solid #ddd; 
+    border-radius: 8px; cursor: pointer; transition: 0.3s; text-align: left;
+}
+
+.option-btn:hover { border-color: var(--primary); background: #f0f7ff; }
+
+.correct { background: var(--success) !important; color: white; border-color: var(--success); }
+.wrong { background: var(--error) !important; color: white; border-color: var(--error); }
+
+#progress-bar { height: 10px; background: var(--primary); width: 0%; transition: 0.5s; border-radius: 5px; }

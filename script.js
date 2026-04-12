@@ -42,6 +42,7 @@ const allQuestions = {
 let currentQuestions = [];
 let currentIdx = 0;
 
+// --- TEST SİSTEMİ ---
 function startQuiz(topic) {
     currentQuestions = allQuestions[topic];
     if(!currentQuestions || currentQuestions.length === 0) { 
@@ -59,6 +60,10 @@ function loadQuestion() {
     document.getElementById("question-text").innerText = q.text;
     document.getElementById("image-container").innerHTML = `<img src="${q.image}" style="width:100%; border-radius:15px; display:block; margin:auto;">`;
     
+    // İlerleme Çubuğunu Güncelle (Dinamik Yüzde)
+    const progressPercent = Math.round(((currentIdx) / currentQuestions.length) * 100);
+    updateProgressBar(progressPercent);
+
     const opts = document.getElementById("options-container");
     opts.innerHTML = "";
     q.options.forEach(opt => {
@@ -82,11 +87,34 @@ function loadQuestion() {
     document.getElementById("next-btn").classList.add("hidden");
 }
 
+function updateProgressBar(percent) {
+    const fill = document.querySelector(".p-fill");
+    const text = document.querySelector(".grid .glass-card.featured span:first-of-type");
+    if(fill) fill.style.width = percent + "%";
+    if(text && text.innerText.includes("Tamamlandı")) {
+        text.innerText = "%" + percent + " Tamamlandı";
+    }
+}
+
 document.getElementById("next-btn").onclick = () => {
     currentIdx++;
-    if(currentIdx < currentQuestions.length) loadQuestion();
-    else { alert("Tebrikler Esra Hocam! Bölümü bitirdin."); location.reload(); }
+    if(currentIdx < currentQuestions.length) {
+        loadQuestion();
+    } else { 
+        updateProgressBar(100);
+        setTimeout(() => {
+            alert("Tebrikler Esra Hocam! Bölümü %100 başarıyla bitirdin."); 
+            location.reload(); 
+        }, 500);
+    }
 };
+
+// --- İNTERAKTİF KATLAMA SİSTEMİ ---
+function openInfo() {
+    document.getElementById("menu-area").classList.add("hidden");
+    document.getElementById("info-area").classList.remove("hidden");
+    animateFold('reset');
+}
 
 function animateFold(type) {
     const svg = document.getElementById("svg-folding-area");
@@ -120,7 +148,7 @@ function animateFold(type) {
     else if(type === 'aciortay') {
         folder.setAttribute("points", "100,50 40,220 100,220");
         folder.style.transformOrigin = "100px 50px"; 
-        targetTransform = "rotate(25deg)"; // 25deg tam yaslanma sağlar
+        targetTransform = "rotate(25deg)"; 
         lineX2 = "125"; 
         resultInfo = "Açıortay: [AB] kenarını [AC] üzerine tam gelecek şekilde katladık. [AD] açıortayı oluştu!";
         symbols = `<circle cx="92" cy="75" r="3" fill="#00e3fd"/><circle cx="108" cy="75" r="3" fill="#00e3fd"/><text x="120" y="240" fill="#f2ffd0" font-weight="bold" font-size="14">D</text>`;
@@ -157,10 +185,4 @@ function animateFold(type) {
         <text x="95" y="40" fill="#a29bfe" font-weight="bold" font-size="16">A</text>
         <text x="25" y="235" fill="#a29bfe" font-weight="bold" font-size="16">B</text>
         <text x="165" y="235" fill="#a29bfe" font-weight="bold" font-size="16">C</text>`;
-}
-
-function openInfo() {
-    document.getElementById("menu-area").classList.add("hidden");
-    document.getElementById("info-area").classList.remove("hidden");
-    animateFold('reset');
 }

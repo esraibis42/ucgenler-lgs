@@ -71,7 +71,7 @@ function animateFold(type) {
     
     svg.innerHTML = ""; // Temizle
     
-    // --- 1. ANA ÜÇGEN (ARKA PLAN) ---
+    // 1. ARKA PLAN ÜÇGENİ
     const mainTri = document.createElementNS(ns, "polygon");
     mainTri.setAttribute("points", "100,50 40,220 160,220");
     mainTri.style.fill = "rgba(108, 92, 231, 0.05)";
@@ -79,40 +79,41 @@ function animateFold(type) {
     mainTri.style.strokeWidth = "2";
     svg.appendChild(mainTri);
 
-    // --- 2. KATLANAN PARÇA (HAREKETLİ KAPAK) ---
+    // 2. KATLANAN KAPAK (Sol tarafı temsil eder)
     const folder = document.createElementNS(ns, "polygon");
-    folder.style.fill = "rgba(108, 92, 231, 0.4)";
+    folder.style.fill = "rgba(108, 92, 231, 0.5)";
     folder.style.stroke = "#6c5ce7";
     folder.style.strokeWidth = "2";
-    folder.style.transition = "transform 0.8s cubic-bezier(0.45, 0.05, 0.55, 0.95)";
+    folder.style.transition = "transform 1s ease-in-out";
     
     let targetTransform, resultInfo, symbols, lineX2;
 
     if(type === 'yukseklik') {
+        // A noktasından aşağıya tam dik katlama
         folder.setAttribute("points", "100,50 40,220 100,220"); 
         folder.style.transformOrigin = "100px 135px"; 
         targetTransform = "rotateY(-180deg)";
         lineX2 = "100";
-        resultInfo = "Yükseklik: A köşesini hizalayıp B'yi kenar üzerine katladık. [AH] dikliği oluştu!";
-        symbols = `<rect x="100" y="210" width="10" height="10" fill="none" stroke="#fdcb6e" stroke-width="2"/><text x="95" y="240" fill="#ff7675" font-weight="bold">H</text>`;
+        resultInfo = "Yükseklik: A köşesini sabit tutup B'yi taban boyunca katladık. AH dikliği oluştu!";
+        symbols = `<rect x="100" y="210" width="10" height="10" fill="none" stroke="#fdcb6e" stroke-width="2"/><text x="95" y="240" fill="#ff7675" font-weight="bold" font-size="14">H</text>`;
     } 
     else if(type === 'aciortay') {
-        folder.setAttribute("points", "100,50 40,220 110,220");
-        folder.style.transformOrigin = "110px 135px";
+        // AB kenarını AC üzerine bindirme
+        folder.setAttribute("points", "100,50 40,220 115,220");
+        folder.style.transformOrigin = "115px 135px";
         targetTransform = "rotateY(-180deg)"; 
-        lineX2 = "120";
-        resultInfo = "Açıortay: [AB] kenarını [AC] üzerine gelecek şekilde katladık. [AN] oluştu!";
-        symbols = `<circle cx="93" cy="72" r="3" fill="#00b894"/><circle cx="107" cy="72" r="3" fill="#00b894"/><text x="115" y="240" fill="#ff7675" font-weight="bold">N</text>`;
+        lineX2 = "130";
+        resultInfo = "Açıortay: [AB] kenarını [AC] üzerine tam gelecek şekilde katladık. [AN] oluştu!";
+        symbols = `<circle cx="93" cy="72" r="3" fill="#00b894"/><circle cx="107" cy="72" r="3" fill="#00b894"/><text x="125" y="240" fill="#ff7675" font-weight="bold" font-size="14">N</text>`;
     } 
     else if(type === 'kenarortay') {
-        // KENARORTAY FİX: B köşesini (40,220) C'nin (160,220) üzerine katlıyoruz.
-        // Orta nokta tam olarak 100,220 (D noktası).
-        folder.setAttribute("points", "40,220 100,220 100,135"); 
-        folder.style.transformOrigin = "100px 220px"; // Katlama çizgisi (D noktası) üzerinden döner
+        // B köşesini C'nin üzerine tam kapatma
+        folder.setAttribute("points", "40,220 100,220 100,50"); // Sol yarım üçgenin tamamı
+        folder.style.transformOrigin = "100px 135px"; 
         targetTransform = "rotateY(-180deg)";
         lineX2 = "100";
-        resultInfo = "Kenarortay: B ve C köşelerini üst üste getirdik. [AD] kenarortayını bulduk!";
-        symbols = `<path d="M65 215 L75 225 M125 215 L135 225" stroke="#a29bfe" stroke-width="3"/><text x="95" y="240" fill="#ff7675" font-weight="bold">D</text>`;
+        resultInfo = "Kenarortay: B köşesini tutup C'nin üzerine tam kapattık. Orta nokta D bulundu!";
+        symbols = `<path d="M65 215 L75 225 M125 215 L135 225" stroke="#a29bfe" stroke-width="3"/><text x="95" y="240" fill="#ff7675" font-weight="bold" font-size="14">D</text>`;
     }
 
     if(type !== 'reset') {
@@ -120,13 +121,13 @@ function animateFold(type) {
         
         // ANİMASYON SIRALAMASI
         setTimeout(() => {
-            folder.style.transform = targetTransform; // KATLA
+            folder.style.transform = targetTransform; // KAPAT
             
             setTimeout(() => {
                 folder.style.transform = "rotateY(0deg)"; // GERİ AÇ
                 
                 setTimeout(() => {
-                    // KAT İZİ (Kesikli Çizgi)
+                    // KAT İZİ VE SEMBOLLER
                     const line = document.createElementNS(ns, "line");
                     line.setAttribute("x1", "100"); line.setAttribute("y1", "50");
                     line.setAttribute("x2", lineX2); line.setAttribute("y2", "220");
@@ -135,14 +136,13 @@ function animateFold(type) {
                     svg.innerHTML += symbols;
                     desc.innerText = resultInfo;
                 }, 800);
-            }, 1000);
+            }, 1200);
         }, 100);
     }
 
-    // Köşe Harfleri
-    const labels = `
-        <text x="95" y="40" fill="#a29bfe" font-weight="bold">A</text>
-        <text x="25" y="235" fill="#a29bfe" font-weight="bold">B</text>
-        <text x="165" y="235" fill="#a29bfe" font-weight="bold">C</text>`;
-    svg.innerHTML += labels;
+    // A-B-C Harfleri (Hep en üstte)
+    svg.innerHTML += `
+        <text x="95" y="40" fill="#a29bfe" font-weight="bold" font-size="16">A</text>
+        <text x="25" y="235" fill="#a29bfe" font-weight="bold" font-size="16">B</text>
+        <text x="165" y="235" fill="#a29bfe" font-weight="bold" font-size="16">C</text>`;
 }

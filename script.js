@@ -2,7 +2,39 @@ const allQuestions = {
     yardimci: [
         { id: 1, text: "Soruyu resme göre cevaplayınız:", image: "images/yukseklik1.png", options: ["A) 32", "B) 28", "C) 24", "D) 18"], answer: "A) 32", hints: ["BC tabanı 6 birim, AB 8 birimdir.", "Alan sabit: 6x24 = 8x?"] },
         { id: 2, text: "Soruyu resme göre cevaplayınız:", image: "images/yukseklik2.png", options: ["A) 4,8", "B) 5,2", "C) 9,6", "D) 10,4"], answer: "C) 9,6", hints: ["Dik kenarlar çarpımı = Hipotenüs x Yükseklik.", "12x16 = 20xh"] },
-        { id: 6, text: "Soruyu resme göre cevaplayınız:", image: "images/yukseklik6.png", options: ["A) 14", "B) 15", "C) 16", "D) 17"], answer: "B) 15", hints: ["Birim say (3, 5, 7) ve topla: 3+5+7 = 15 cm."] }
+        { 
+            id: 3, 
+            text: "Kareli zeminde verilen ABC üçgeninde yükseklikler hangi harfin olduğu noktada kesişir?", 
+            image: "images/yukseklik3.png", 
+            options: ["A) A", "B) K", "C) L", "D) N"], 
+            answer: "C) L", 
+            hints: ["Yükseklikler köşelerden karşı kenarlara dik iner.", "Dar açılı üçgenlerde yüksekliklerin kesim noktası üçgenin içindedir."] 
+        },
+        { 
+            id: 4, 
+            text: "BFH üçgeninde FH kenarına ait yükseklik kaç santimetredir?", 
+            image: "images/yukseklik4.png", 
+            options: ["A) 22", "B) 18", "C) 17", "D) 15"], 
+            answer: "D) 15", 
+            hints: ["Karenin alanı 49 ise bir kenarı 7'dir.", "Dikdörtgenin alanı 180 ve bir kenarı (7+5)=12 ise diğer kenarını bul."] 
+        },
+        { 
+            id: 5, 
+            text: "Aşağıda verilen üçgenlerden hangisinde yükseklikler üçgenin bir köşesinde kesişir?", 
+            image: "images/yukseklik5.png", 
+            options: ["A)", "B)", "C)", "D)"], 
+            answer: "C)", 
+            hints: ["Yükseklikler sadece DİK üçgenlerde köşede kesişir.", "C şıkkındaki açıları topla: 61 + 29 = 90. Bu bir dik üçgendir!"] 
+        },
+        { id: 6, text: "Soruyu resme göre cevaplayınız:", image: "images/yukseklik6.png", options: ["A) 14", "B) 15", "C) 16", "D) 17"], answer: "B) 15", hints: ["Birim say (3, 5, 7) ve topla: 3+5+7 = 15 cm."] },
+        { 
+            id: 7, 
+            text: "Alanı 40 cm² olan AB? üçgeni çizilecektir. '?' yerine hangisi yazılmalıdır?", 
+            image: "images/yukseklik7.png", 
+            options: ["A) K", "B) L", "C) M", "D) N"], 
+            answer: "B) L", 
+            hints: ["Alan = (Taban x Yükseklik) / 2", "40 = (10 x h) / 2 ise yüksekliğin (h) 8 birim olması gerekir."] 
+        }
     ],
     esitsizlik: [], "aci-kenar": [], pisagor: []
 };
@@ -10,7 +42,6 @@ const allQuestions = {
 let currentQuestions = [];
 let currentIdx = 0;
 
-// --- TEST SİSTEMİ ---
 function startQuiz(topic) {
     currentQuestions = allQuestions[topic];
     if(!currentQuestions || currentQuestions.length === 0) { 
@@ -57,21 +88,12 @@ document.getElementById("next-btn").onclick = () => {
     else { alert("Tebrikler Esra Hocam! Bölümü bitirdin."); location.reload(); }
 };
 
-// --- İNTERAKTİF KATLAMA SİSTEMİ ---
-function openInfo() {
-    document.getElementById("menu-area").classList.add("hidden");
-    document.getElementById("info-area").classList.remove("hidden");
-    animateFold('reset');
-}
-
 function animateFold(type) {
     const svg = document.getElementById("svg-folding-area");
     const desc = document.getElementById("info-desc");
     const ns = "http://www.w3.org/2000/svg";
-    
-    svg.innerHTML = ""; // Temizle
-    
-    // 1. ARKA PLAN ÜÇGENİ
+    svg.innerHTML = ""; 
+
     const mainTri = document.createElementNS(ns, "polygon");
     mainTri.setAttribute("points", "100,50 40,220 160,220");
     mainTri.style.fill = "rgba(108, 92, 231, 0.05)";
@@ -79,7 +101,6 @@ function animateFold(type) {
     mainTri.style.strokeWidth = "2";
     svg.appendChild(mainTri);
 
-    // 2. KATLANAN KAPAK (Sol tarafı temsil eder)
     const folder = document.createElementNS(ns, "polygon");
     folder.style.fill = "rgba(108, 92, 231, 0.5)";
     folder.style.stroke = "#6c5ce7";
@@ -97,20 +118,12 @@ function animateFold(type) {
         symbols = `<rect x="100" y="210" width="10" height="10" fill="none" stroke="#fdcb6e" stroke-width="2"/><text x="95" y="240" fill="#ff7675" font-weight="bold" font-size="14">H</text>`;
     } 
     else if(type === 'aciortay') {
-        // AÇIORTAY: AB kenarını AC üzerine tam yatırma (Pivot Hareketi)
         folder.setAttribute("points", "100,50 40,220 100,220");
-        folder.style.transformOrigin = "100px 50px"; // A noktası sabit
-        
-        // Parçayı sadece Z ekseninde (2D düzlemde) AC kenarına doğru döndürüyoruz
-        targetTransform = "rotate(24deg)"; 
-        
-        lineX2 = "125"; // Açıortay noktası D
+        folder.style.transformOrigin = "100px 50px"; 
+        targetTransform = "rotate(25deg)"; // 25deg tam yaslanma sağlar
+        lineX2 = "125"; 
         resultInfo = "Açıortay: [AB] kenarını [AC] üzerine tam gelecek şekilde katladık. [AD] açıortayı oluştu!";
-        symbols = `
-            <circle cx="92" cy="75" r="3" fill="#00e3fd"/>
-            <circle cx="108" cy="75" r="3" fill="#00e3fd"/>
-            <text x="120" y="240" fill="#f2ffd0" font-weight="bold" font-size="14">D</text>
-        `;
+        symbols = `<circle cx="92" cy="75" r="3" fill="#00e3fd"/><circle cx="108" cy="75" r="3" fill="#00e3fd"/><text x="120" y="240" fill="#f2ffd0" font-weight="bold" font-size="14">D</text>`;
     }
     else if(type === 'kenarortay') {
         folder.setAttribute("points", "40,220 100,220 100,50"); 
@@ -144,4 +157,10 @@ function animateFold(type) {
         <text x="95" y="40" fill="#a29bfe" font-weight="bold" font-size="16">A</text>
         <text x="25" y="235" fill="#a29bfe" font-weight="bold" font-size="16">B</text>
         <text x="165" y="235" fill="#a29bfe" font-weight="bold" font-size="16">C</text>`;
+}
+
+function openInfo() {
+    document.getElementById("menu-area").classList.add("hidden");
+    document.getElementById("info-area").classList.remove("hidden");
+    animateFold('reset');
 }

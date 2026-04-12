@@ -69,62 +69,81 @@ function animateFold(type) {
     const desc = document.getElementById("info-desc");
     const ns = "http://www.w3.org/2000/svg";
     
-    svg.innerHTML = "";
-    svg.classList.remove("triangle-animate");
-    if(type !== 'reset') {
-        void svg.offsetWidth;
-        svg.classList.add("triangle-animate");
-    }
+    svg.innerHTML = ""; // Sahneyi sıfırla
+    
+    // --- 1. SABİT ANA ÜÇGEN ---
+    const mainTri = document.createElementNS(ns, "polygon");
+    mainTri.setAttribute("points", "100,50 40,220 160,220");
+    mainTri.style.fill = "rgba(108, 92, 231, 0.05)";
+    mainTri.style.stroke = "rgba(162, 155, 254, 0.3)";
+    mainTri.style.strokeWidth = "2";
+    svg.appendChild(mainTri);
 
-    // Üçgen Çizimi
-    const triangle = document.createElementNS(ns, "polygon");
-    triangle.setAttribute("points", "100,50 40,220 160,220");
-    triangle.setAttribute("fill", "rgba(108, 92, 231, 0.1)");
-    triangle.setAttribute("stroke", "#a29bfe");
-    triangle.setAttribute("stroke-width", "3");
-    svg.appendChild(triangle);
-
-    // Harfler
-    const labels = [{t:"A",x:95,y:40}, {t:"B",x:25,y:235}, {t:"C",x:165,y:235}];
-    labels.forEach(l => {
-        const txt = document.createElementNS(ns, "text");
-        txt.setAttribute("x", l.x); txt.setAttribute("y", l.y);
-        txt.textContent = l.t; txt.style.fill = "#a29bfe";
-        svg.appendChild(txt);
-    });
-
-    if(type === 'reset') return;
-
-    const group = document.createElementNS(ns, "g");
-    group.style.opacity = "0"; group.style.transition = "opacity 0.6s ease";
-    svg.appendChild(group);
-
-    const line = document.createElementNS(ns, "line");
-    line.setAttribute("x1", "100"); line.setAttribute("y1", "50");
-    line.style.stroke = "#ff7675"; line.style.strokeWidth = "3"; line.style.strokeDasharray = "5,5";
+    // --- 2. KATLANAN PARÇA (HAREKETLİ KAPAK) ---
+    const folder = document.createElementNS(ns, "polygon");
+    folder.style.fill = "rgba(108, 92, 231, 0.4)";
+    folder.style.stroke = "#6c5ce7";
+    folder.style.strokeWidth = "2";
+    folder.style.transition = "transform 0.8s ease-in-out";
+    
+    let targetTransform, resultInfo, symbols, lineX2;
 
     if(type === 'yukseklik') {
-        line.setAttribute("x2", "100"); line.setAttribute("y2", "220");
-        group.appendChild(line);
-        // Diklik karesi
-        const rect = document.createElementNS(ns, "rect");
-        rect.setAttribute("x", "100"); rect.setAttribute("y", "210"); rect.setAttribute("width", "10"); rect.setAttribute("height", "10");
-        rect.style.fill = "none"; rect.style.stroke = "#fdcb6e";
-        group.appendChild(rect);
-        desc.innerText = "Yükseklik: AH doğrusu tabana 90 derecelik açıyla iner.";
+        // A'dan dik indirmek için sol parçayı katla
+        folder.setAttribute("points", "100,50 40,220 100,220"); 
+        folder.style.transformOrigin = "100px 135px"; 
+        targetTransform = "rotateY(-180deg)";
+        lineX2 = "100";
+        resultInfo = "Yükseklik: A köşesini hizalayıp B'yi kenar üzerine katladık. [AH] dikliği oluştu!";
+        symbols = `<rect x="100" y="210" width="10" height="10" fill="none" stroke="#fdcb6e" stroke-width="2"/><text x="95" y="240" fill="#ff7675" font-weight="bold">H</text>`;
     } 
     else if(type === 'aciortay') {
-        line.setAttribute("x2", "125"); line.setAttribute("y2", "220");
-        group.appendChild(line);
-        group.innerHTML += `<circle cx="93" cy="70" r="3" fill="#00b894"/><circle cx="107" cy="70" r="3" fill="#00b894"/>`;
-        desc.innerText = "Açıortay: AN doğrusu A açısını tam ortadan ikiye böler.";
+        // Kenarı kenar üzerine getir (Açıortay)
+        folder.setAttribute("points", "100,50 40,220 110,220");
+        folder.style.transformOrigin = "105px 135px";
+        targetTransform = "rotateY(-150deg) skewY(5deg)"; 
+        lineX2 = "120";
+        resultInfo = "Açıortay: [AB] kenarını [AC] üzerine gelecek şekilde katladık. [AN] oluştu!";
+        symbols = `<circle cx="93" cy="72" r="3" fill="#00b894"/><circle cx="107" cy="72" r="3" fill="#00b894"/><text x="115" y="240" fill="#ff7675" font-weight="bold">N</text>`;
     } 
     else if(type === 'kenarortay') {
-        line.setAttribute("x2", "100"); line.setAttribute("y2", "220");
-        group.appendChild(line);
-        group.innerHTML += `<path d="M60 215 L75 225 M125 215 L140 225" stroke="#a29bfe" stroke-width="2"/>`;
-        desc.innerText = "Kenarortay: AD doğrusu BC kenarını iki eş parçaya böler.";
+        // B'yi C'nin üzerine katla (Kenarortay)
+        folder.setAttribute("points", "40,220 100,220 100,135");
+        folder.style.transformOrigin = "100px 220px";
+        targetTransform = "rotateY(-180deg)";
+        lineX2 = "100";
+        resultInfo = "Kenarortay: B ve C köşelerini üst üste getirdik. [AD] kenarortayını bulduk!";
+        symbols = `<path d="M60 215 L70 225 M130 215 L140 225" stroke="#6c5ce7" stroke-width="3"/><text x="95" y="240" fill="#ff7675" font-weight="bold">D</text>`;
     }
 
-    setTimeout(() => { group.style.opacity = "1"; }, 1200);
+    if(type !== 'reset') {
+        svg.appendChild(folder);
+        
+        // ANİMASYON DÖNGÜSÜ: Katla -> Bekle -> Aç -> İzi Göster
+        setTimeout(() => {
+            folder.style.transform = targetTransform; // ADIM 2: KATLA
+            
+            setTimeout(() => {
+                folder.style.transform = "rotateY(0deg)"; // ADIM 3: GERİ AÇ
+                
+                setTimeout(() => {
+                    // KAT İZİ (Kırmızı Kesikli Çizgi)
+                    const line = document.createElementNS(ns, "line");
+                    line.setAttribute("x1", "100"); line.setAttribute("y1", "50");
+                    line.setAttribute("x2", lineX2); line.setAttribute("y2", "220");
+                    line.style.stroke = "#ff7675"; line.style.strokeWidth = "3"; line.style.strokeDasharray = "5,5";
+                    svg.appendChild(line);
+                    svg.innerHTML += symbols;
+                    desc.innerText = resultInfo;
+                }, 800);
+            }, 1000);
+        }, 100);
+    }
+
+    // Köşe Harfleri (A-B-C)
+    const labels = `
+        <text x="95" y="40" fill="#a29bfe" font-weight="bold">A</text>
+        <text x="25" y="235" fill="#a29bfe" font-weight="bold">B</text>
+        <text x="165" y="235" fill="#a29bfe" font-weight="bold">C</text>`;
+    svg.innerHTML += labels;
 }

@@ -97,19 +97,19 @@ function animateFold(type) {
         symbols = `<rect x="100" y="210" width="10" height="10" fill="none" stroke="#fdcb6e" stroke-width="2"/><text x="95" y="240" fill="#ff7675" font-weight="bold" font-size="14">H</text>`;
     } 
     else if(type === 'aciortay') {
-        // AÇIORTAY KESİN ÇÖZÜM: Sol parça tam üçgenin yarısı olmalı
+        // AÇIORTAY: AB kenarını AC üzerine tam yatırma (Pivot Hareketi)
         folder.setAttribute("points", "100,50 40,220 100,220");
-        folder.style.transformOrigin = "100px 50px"; 
+        folder.style.transformOrigin = "100px 50px"; // A noktası sabit
         
-        // ÖNEMLİ: rotateY(-180deg) kağıdı çevirir, rotate(22deg) ise AC kenarına tam yaslar.
-        targetTransform = "rotateY(-180deg) rotate(22deg)"; 
+        // Parçayı sadece Z ekseninde (2D düzlemde) AC kenarına doğru döndürüyoruz
+        targetTransform = "rotate(24deg)"; 
         
-        lineX2 = "125"; // Açıortay noktası N (Matematiksel orta hat)
-        resultInfo = "Açıortay: [AB] kenarını [AC] üzerine tam gelecek şekilde katladık. [AN] açıortayı oluştu!";
+        lineX2 = "125"; // Açıortay noktası D
+        resultInfo = "Açıortay: [AB] kenarını [AC] üzerine tam gelecek şekilde katladık. [AD] açıortayı oluştu!";
         symbols = `
-            <circle cx="92" cy="72" r="3" fill="#00e3fd"/>
-            <circle cx="108" cy="72" r="3" fill="#00e3fd"/>
-            <text x="120" y="240" fill="#f2ffd0" font-weight="bold" font-size="14">N</text>
+            <circle cx="92" cy="75" r="3" fill="#00e3fd"/>
+            <circle cx="108" cy="75" r="3" fill="#00e3fd"/>
+            <text x="120" y="240" fill="#f2ffd0" font-weight="bold" font-size="14">D</text>
         `;
     }
     else if(type === 'kenarortay') {

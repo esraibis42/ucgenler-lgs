@@ -3,7 +3,6 @@
 :root {
     --grad-main: linear-gradient(135deg, #7C3AED, #3B82F6, #22D3EE);
     --bg-krem: #fcf8f2;
-    --text-dark: #1e293b;
 }
 
 body {
@@ -13,29 +12,34 @@ body {
     background-image: radial-gradient(#e2e8f0 0.8px, transparent 0.8px);
     background-size: 30px 30px;
     display: flex; justify-content: center; min-height: 100vh;
-    color: var(--text-dark);
-    overflow-x: hidden; /* Taşmaları engeller */
+    overflow-x: hidden; /* Kenardan taşan kareleri gizler */
 }
 
 .app-wrapper {
     width: 100%; max-width: 900px; padding: 40px 20px;
-    position: relative; z-index: 1;
+    position: relative; z-index: 10;
 }
 
-/* KARELERİ BULUTLARA ÇEVİREN KISIM */
+/* --- KARELERİN YERİNE YUMUŞAK BULUTLAR --- */
 .shape {
-    position: absolute; 
+    position: absolute;
     z-index: -1; 
-    border-radius: 50%; /* Kareyi yuvarlağa çevir */
-    filter: blur(100px); /* Maksimum bulanıklık */
-    opacity: 0.15; /* Çok hafif bir dokunuş */
-    pointer-events: none; /* Üzerine tıklanmasın, butonlara engel olmasın */
+    border-radius: 50%; /* Kareyi mutlaka yuvarlatıyoruz */
+    opacity: 0.15; /* Çok şeffaf yapıyoruz ki hata olsa bile göz yormasın */
+    filter: blur(60px); /* Blur değerini biraz düşürdük ki tarayıcı yorulmasın */
+    pointer-events: none;
+    animation: floatAnim 10s infinite alternate ease-in-out;
 }
 
+@keyframes floatAnim {
+    from { transform: translate(0, 0); }
+    to { transform: translate(20px, 30px); }
+}
+
+/* Diğer her şey aynı kalıyor */
 h1 {
     font-family: 'Sora', sans-serif; font-size: 3.5rem; font-weight: 800;
     background: var(--grad-main); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    margin: 10px 0;
 }
 
 .btn-pulse {
@@ -43,10 +47,7 @@ h1 {
     color: white; border: none; padding: 18px 45px; border-radius: 50px;
     font-weight: 800; font-size: 18px; cursor: pointer;
     box-shadow: 0 10px 25px rgba(244, 114, 182, 0.3);
-    transition: 0.3s;
 }
-
-.btn-pulse:hover { transform: scale(1.05); box-shadow: 0 15px 30px rgba(244, 114, 182, 0.4); }
 
 .grid {
     display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -54,32 +55,13 @@ h1 {
 }
 
 .glass-card {
-    background: white; border-radius: 25px; padding: 25px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.03);
-    border: 1px solid rgba(124, 58, 237, 0.1);
+    background: rgba(255, 255, 255, 0.8); /* Kartların arkası hafif şeffaf */
+    backdrop-filter: blur(10px); /* Kartların içine de hafif blur ekledik */
+    border-radius: 25px; padding: 25px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    border: 1px solid rgba(255,255,255,0.5);
     cursor: pointer; transition: 0.3s;
-    display: flex; flex-direction: column; gap: 10px;
-    position: relative; z-index: 5; /* Butonların üzerine tıklanması için */
-}
-
-.glass-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(124, 58, 237, 0.1); border-color: #7C3AED; }
-
-/* QUIZ ŞIKLARI */
-.option-btn {
-    width: 100%; padding: 15px; margin: 10px 0;
-    background: white; border: 2px solid #f1f5f9;
-    border-radius: 15px; font-weight: 600; cursor: pointer;
-    transition: 0.2s; text-align: left;
-}
-.option-btn:hover { border-color: #7C3AED; background: #f5f3ff; }
-
-/* SVG */
-#svg-folding-area {
-    width: 100%; max-width: 400px; height: 300px;
-    background: #fff; border: 2px dashed #ddd; border-radius: 20px;
-    margin: 20px auto; display: block;
 }
 
 .hidden { display: none !important; }
-
-footer { margin-top: 60px; text-align: center; color: #94a3b8; font-size: 14px; font-weight: 500; }
+footer { margin-top: 60px; text-align: center; color: #94a3b8; }

@@ -100,11 +100,17 @@ function animateFold(type) {
         // AÇIORTAY KESİN ÇÖZÜM: Sol parça tam üçgenin yarısı olmalı
         folder.setAttribute("points", "100,50 40,220 100,220");
         folder.style.transformOrigin = "100px 50px"; 
-        // rotateY ve Z açısını dengeleyerek tam üst üste binmesini sağlıyoruz
-        targetTransform = "rotateY(-180deg) rotateZ(22deg)"; 
-        lineX2 = "125"; // Açıortay noktası N
+        
+        // ÖNEMLİ: rotateY(-180deg) kağıdı çevirir, rotate(22deg) ise AC kenarına tam yaslar.
+        targetTransform = "rotateY(-180deg) rotate(22deg)"; 
+        
+        lineX2 = "125"; // Açıortay noktası N (Matematiksel orta hat)
         resultInfo = "Açıortay: [AB] kenarını [AC] üzerine tam gelecek şekilde katladık. [AN] açıortayı oluştu!";
-        symbols = `<circle cx="93" cy="72" r="3" fill="#00e3fd"/><circle cx="107" cy="72" r="3" fill="#00e3fd"/><text x="120" y="240" fill="#f2ffd0" font-weight="bold" font-size="14">N</text>`;
+        symbols = `
+            <circle cx="92" cy="72" r="3" fill="#00e3fd"/>
+            <circle cx="108" cy="72" r="3" fill="#00e3fd"/>
+            <text x="120" y="240" fill="#f2ffd0" font-weight="bold" font-size="14">N</text>
+        `;
     }
     else if(type === 'kenarortay') {
         folder.setAttribute("points", "40,220 100,220 100,50"); 

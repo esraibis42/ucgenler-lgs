@@ -18,11 +18,12 @@
     --radius-full: 50px;
 }
 
-body { 
-    font-family: 'Manrope', sans-serif; /* Body for Humanist qualities */
+body {
+    font-family: 'Manrope', sans-serif;
     background-color: var(--surface);
-    background-image: radial-gradient(var(--primary-dim) 0.5px, transparent 0.5px);
-    background-size: 40px 40px;
+    /* Noktaları (grid) PC monitörlerinde de görünür kılmak için rengi belirginleştirdik */
+    background-image: radial-gradient(rgba(148, 163, 184, 0.2) 1.5px, transparent 1.5px);
+    background-size: 30px 30px;
     color: var(--on-surface);
     margin: 0; min-height: 100vh;
     display: flex; justify-content: center;

@@ -1,148 +1,92 @@
-const allQuestions = {
-    yardimci: [
-        { id: 1, text: "Soruyu resme göre cevaplayınız:", image: "images/yukseklik1.png", options: ["A) 32", "B) 28", "C) 24", "D) 18"], answer: "A) 32", hints: ["BC tabanı 6 birim, AB 8 birimdir.", "Alan sabit: 6x24 = 8x?"] },
-        { id: 2, text: "Soruyu resme göre cevaplayınız:", image: "images/yukseklik2.png", options: ["A) 4,8", "B) 5,2", "C) 9,6", "D) 10,4"], answer: "C) 9,6", hints: ["Dik kenarlar çarpımı = Hipotenüs x Yükseklik.", "12x16 = 20xh"] },
-        { id: 6, text: "Soruyu resme göre cevaplayınız:", image: "images/yukseklik6.png", options: ["A) 14", "B) 15", "C) 16", "D) 17"], answer: "B) 15", hints: ["Birim say (3, 5, 7) ve topla: 3+5+7 = 15 cm."] }
-    ],
-    esitsizlik: [], "aci-kenar": [], pisagor: []
-};
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;700;800&family=Poppins:wght@400;600&display=swap');
 
-let currentQuestions = [];
-let currentIdx = 0;
-
-// --- TEST SİSTEMİ ---
-function startQuiz(topic) {
-    currentQuestions = allQuestions[topic];
-    if(!currentQuestions || currentQuestions.length === 0) { 
-        alert("Bu ünite çok yakında eklenecek!"); 
-        return; 
-    }
-    currentIdx = 0;
-    document.getElementById("menu-area").classList.add("hidden");
-    document.getElementById("quiz-area").classList.remove("hidden");
-    loadQuestion();
+:root {
+    --grad-main: linear-gradient(135deg, #7C3AED, #3B82F6, #22D3EE);
+    --grad-accent: linear-gradient(90deg, #F472B6, #A78BFA);
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --neon-glow: 0 0 20px rgba(124, 58, 237, 0.3);
+    --text-dark: #0F172A;
 }
 
-function loadQuestion() {
-    const q = currentQuestions[currentIdx];
-    document.getElementById("question-text").innerText = q.text;
-    document.getElementById("image-container").innerHTML = `<img src="${q.image}" style="width:100%; border-radius:15px; display:block; margin:auto;">`;
-    
-    const opts = document.getElementById("options-container");
-    opts.innerHTML = "";
-    q.options.forEach(opt => {
-        const b = document.createElement("button");
-        b.className = "option-btn"; 
-        b.innerText = opt;
-        b.onclick = () => {
-            if(opt === q.answer) {
-                b.style.background = "#00b894"; b.style.color = "white";
-                document.getElementById("next-btn").classList.remove("hidden");
-                document.getElementById("hint-text").classList.add("hidden");
-            } else {
-                b.style.background = "#ff7675"; b.style.color = "white";
-                const hint = document.getElementById("hint-text");
-                hint.innerText = "💡 İpucu: " + q.hints[0];
-                hint.classList.remove("hidden");
-            }
-        };
-        opts.appendChild(b);
-    });
-    document.getElementById("next-btn").classList.add("hidden");
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    /* Hareketli Arka Plan Gradiyenti */
+    background: linear-gradient(-45deg, #fdfbfb, #ebedee, #e2e8f0, #fcf8f2);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    display: flex; justify-content: center; min-height: 100vh;
+    overflow-x: hidden;
 }
 
-document.getElementById("next-btn").onclick = () => {
-    currentIdx++;
-    if(currentIdx < currentQuestions.length) loadQuestion();
-    else { alert("Tebrikler Esra Hocam! Bölümü bitirdin."); location.reload(); }
-};
-
-// --- İNTERAKTİF KATLAMA (SİG) ---
-function openInfo() {
-    document.getElementById("menu-area").classList.add("hidden");
-    document.getElementById("info-area").classList.remove("hidden");
-    animateFold('reset');
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
-function animateFold(type) {
-    const svg = document.getElementById("svg-folding-area");
-    const desc = document.getElementById("info-desc");
-    const ns = "http://www.w3.org/2000/svg";
-    
-    svg.innerHTML = ""; // Temizle
-    
-    // 1. ARKA PLAN ÜÇGENİ
-    const mainTri = document.createElementNS(ns, "polygon");
-    mainTri.setAttribute("points", "100,50 40,220 160,220");
-    mainTri.style.fill = "rgba(108, 92, 231, 0.05)";
-    mainTri.style.stroke = "rgba(162, 155, 254, 0.2)";
-    mainTri.style.strokeWidth = "2";
-    svg.appendChild(mainTri);
+.app-wrapper {
+    width: 100%; max-width: 1000px; padding: 40px 20px;
+    position: relative;
+}
 
-    // 2. KATLANAN KAPAK (Sol tarafı temsil eder)
-    const folder = document.createElementNS(ns, "polygon");
-    folder.style.fill = "rgba(108, 92, 231, 0.5)";
-    folder.style.stroke = "#6c5ce7";
-    folder.style.strokeWidth = "2";
-    folder.style.transition = "transform 1s ease-in-out";
-    
-    let targetTransform, resultInfo, symbols, lineX2;
+/* Dekoratif Uçuşan Şekiller */
+.shape {
+    position: absolute; z-index: -1; filter: blur(40px); opacity: 0.4;
+    animation: float 10s infinite alternate ease-in-out;
+}
 
-    if(type === 'yukseklik') {
-        // A noktasından aşağıya tam dik katlama
-        folder.setAttribute("points", "100,50 40,220 100,220"); 
-        folder.style.transformOrigin = "100px 135px"; 
-        targetTransform = "rotateY(-180deg)";
-        lineX2 = "100";
-        resultInfo = "Yükseklik: A köşesini sabit tutup B'yi taban boyunca katladık. AH dikliği oluştu!";
-        symbols = `<rect x="100" y="210" width="10" height="10" fill="none" stroke="#fdcb6e" stroke-width="2"/><text x="95" y="240" fill="#ff7675" font-weight="bold" font-size="14">H</text>`;
-    } 
-    else if(type === 'aciortay') {
-        // AB kenarını AC üzerine bindirme
-        folder.setAttribute("points", "100,50 40,220 115,220");
-        folder.style.transformOrigin = "115px 135px";
-        targetTransform = "rotateY(-180deg)"; 
-        lineX2 = "130";
-        resultInfo = "Açıortay: [AB] kenarını [AC] üzerine tam gelecek şekilde katladık. [AN] oluştu!";
-        symbols = `<circle cx="93" cy="72" r="3" fill="#00b894"/><circle cx="107" cy="72" r="3" fill="#00b894"/><text x="125" y="240" fill="#ff7675" font-weight="bold" font-size="14">N</text>`;
-    } 
-    else if(type === 'kenarortay') {
-        // B köşesini C'nin üzerine tam kapatma
-        folder.setAttribute("points", "40,220 100,220 100,50"); // Sol yarım üçgenin tamamı
-        folder.style.transformOrigin = "100px 135px"; 
-        targetTransform = "rotateY(-180deg)";
-        lineX2 = "100";
-        resultInfo = "Kenarortay: B köşesini tutup C'nin üzerine tam kapattık. Orta nokta D bulundu!";
-        symbols = `<path d="M65 215 L75 225 M125 215 L135 225" stroke="#a29bfe" stroke-width="3"/><text x="95" y="240" fill="#ff7675" font-weight="bold" font-size="14">D</text>`;
-    }
+@keyframes float {
+    from { transform: translateY(0) rotate(0deg); }
+    to { transform: translateY(-40px) rotate(20deg); }
+}
 
-    if(type !== 'reset') {
-        svg.appendChild(folder);
-        
-        // ANİMASYON SIRALAMASI
-        setTimeout(() => {
-            folder.style.transform = targetTransform; // KAPAT
-            
-            setTimeout(() => {
-                folder.style.transform = "rotateY(0deg)"; // GERİ AÇ
-                
-                setTimeout(() => {
-                    // KAT İZİ VE SEMBOLLER
-                    const line = document.createElementNS(ns, "line");
-                    line.setAttribute("x1", "100"); line.setAttribute("y1", "50");
-                    line.setAttribute("x2", lineX2); line.setAttribute("y2", "220");
-                    line.style.stroke = "#ff7675"; line.style.strokeWidth = "3"; line.style.strokeDasharray = "5,5";
-                    svg.appendChild(line);
-                    svg.innerHTML += symbols;
-                    desc.innerText = resultInfo;
-                }, 800);
-            }, 1200);
-        }, 100);
-    }
+/* --- HERO SECTION --- */
+.hero { text-align: center; margin-top: 20px; }
 
-    // A-B-C Harfleri (Hep en üstte)
-    svg.innerHTML += `
-        <text x="95" y="40" fill="#a29bfe" font-weight="bold" font-size="16">A</text>
-        <text x="25" y="235" fill="#a29bfe" font-weight="bold" font-size="16">B</text>
-        <text x="165" y="235" fill="#a29bfe" font-weight="bold" font-size="16">C</text>`;
+h1 {
+    font-family: 'Sora', sans-serif; font-size: 4.5rem; font-weight: 800;
+    background: var(--grad-main); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    margin: 10px 0; filter: drop-shadow(0 10px 10px rgba(0,0,0,0.05));
+}
+
+.btn-pulse {
+    background: var(--grad-accent); color: white; border: none;
+    padding: 20px 50px; border-radius: 50px; font-weight: 800; font-size: 20px;
+    cursor: pointer; box-shadow: 0 10px 30px rgba(244, 114, 182, 0.4);
+    animation: pulse 2s infinite; transition: 0.3s;
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(244, 114, 182, 0.7); }
+    70% { box-shadow: 0 0 0 20px rgba(244, 114, 182, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(244, 114, 182, 0); }
+}
+
+/* --- GLASS CARDS --- */
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 50px; }
+
+.glass-card {
+    background: var(--glass-bg); backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.4); border-radius: 30px;
+    padding: 30px; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative; box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+}
+
+.glass-card:hover {
+    transform: translateY(-12px) scale(1.02);
+    border-color: #7C3AED; box-shadow: 0 25px 50px rgba(124, 58, 237, 0.2);
+}
+
+.featured { border: 2.5px solid #7C3AED; transform: scale(1.05); z-index: 2; }
+
+/* Progress Bar */
+.p-bar { width: 100%; height: 10px; background: #e2e8f0; border-radius: 20px; margin: 20px 0; overflow: hidden; }
+.p-fill { height: 100%; background: var(--grad-main); border-radius: 20px; width: 0; transition: width 1s; }
+
+/* Footer */
+footer {
+    text-align: center; margin-top: 80px; padding: 20px;
+    background: rgba(255,255,255,0.3); border-radius: 20px;
+    font-weight: 600; color: var(--text-dark);
 }

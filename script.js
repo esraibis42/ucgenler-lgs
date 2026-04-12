@@ -97,14 +97,14 @@ function animateFold(type) {
         symbols = `<rect x="100" y="210" width="10" height="10" fill="none" stroke="#fdcb6e" stroke-width="2"/><text x="95" y="240" fill="#ff7675" font-weight="bold" font-size="14">H</text>`;
     } 
     else if(type === 'aciortay') {
-        // AÇIORTAY FİX: AB kenarını AC üzerine tam bindiriyoruz.
-        // Sol parça, tepe açısının tam yarısı kadar dönmeli.
+        // AÇIORTAY KESİN ÇÖZÜM: Sol parça tam üçgenin yarısı olmalı
         folder.setAttribute("points", "100,50 40,220 100,220");
-        folder.style.transformOrigin = "100px 50px"; // Tepe noktasından (A) döner
-        targetTransform = "rotateY(-180deg) rotate(20deg)"; // Açıortay eksenine göre simetri
-        lineX2 = "125"; // Açıortayın tabana indiği nokta (N)
-        resultInfo = "Açıortay: [AB] kenarını [AC] üzerine gelecek şekilde katladık. [AN] açıortayı oluştu!";
-        symbols = `<circle cx="93" cy="75" r="3" fill="#00e3fd"/><circle cx="107" cy="75" r="3" fill="#00e3fd"/><text x="120" y="240" fill="#f2ffd0" font-weight="bold" font-size="14">N</text>`;
+        folder.style.transformOrigin = "100px 50px"; 
+        // rotateY ve Z açısını dengeleyerek tam üst üste binmesini sağlıyoruz
+        targetTransform = "rotateY(-180deg) rotateZ(22deg)"; 
+        lineX2 = "125"; // Açıortay noktası N
+        resultInfo = "Açıortay: [AB] kenarını [AC] üzerine tam gelecek şekilde katladık. [AN] açıortayı oluştu!";
+        symbols = `<circle cx="93" cy="72" r="3" fill="#00e3fd"/><circle cx="107" cy="72" r="3" fill="#00e3fd"/><text x="120" y="240" fill="#f2ffd0" font-weight="bold" font-size="14">N</text>`;
     }
     else if(type === 'kenarortay') {
         folder.setAttribute("points", "40,220 100,220 100,50"); 

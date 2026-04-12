@@ -11,8 +11,8 @@
         <div class="shape" style="top:10%; left:5%; width:200px; height:200px; background:#7C3AED;"></div>
         <div class="shape" style="bottom:10%; right:5%; width:250px; height:250px; background:#22D3EE;"></div>
 
-        <nav style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 50px;">
-            <div style="font-weight: 800; color: #7C3AED; font-size: 20px;">🔥 3 GÜN SERİ</div>
+        <nav style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 50px; position: relative; z-index: 10;">
+            <div style="font-weight: 800; color: #7C3AED; font-size: 18px;">🔥 3 GÜN SERİ</div>
             <div style="background: white; padding: 10px 25px; border-radius: 50px; font-weight: 700; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
                 SEVİYE 2 • Esra İbiş 🎓
             </div>
@@ -21,43 +21,80 @@
         <section id="menu-area" class="hero">
             <span style="background: #D1FAE5; color: #059669; padding: 6px 15px; border-radius: 20px; font-weight: 800; font-size: 12px;">📈 +1200 ÖĞRENCİ BAŞLADI</span>
             <h1>Geometri Kampı</h1>
-            <p>Üçgenleri keşfet, serini kaybetme, bugün başla!</p>
+            <p>Hangi konuyu fethetmek istersin?</p>
             
             <div style="margin: 40px 0;">
-                <button class="btn-pulse" onclick="startQuiz('yardimci')">Hemen Başla 🚀</button>
-                <p style="margin-top: 15px; font-size: 12px; color: #64748b;">⏱ 5 dakikada öğren, bugün XP'ni kazan!</p>
+                <button class="btn-pulse" onclick="document.getElementById('konu-baslik').scrollIntoView({behavior: 'smooth'})">Hemen Başla 🚀</button>
             </div>
 
+            <h2 id="konu-baslik" style="margin-top: 60px; color: #1e293b;">Konu Seçimi</h2>
             <div class="grid">
                 <div class="glass-card featured" onclick="startQuiz('yardimci')">
-                    <div style="position: absolute; top: -15px; right: 20px; background: var(--grad-accent); color: white; padding: 5px 12px; border-radius: 10px; font-size: 10px; font-weight: bold;">🔥 TREND KONU</div>
+                    <div class="card-badge">TREND KONU 🔥</div>
                     <span style="font-size: 40px;">📏</span>
-                    <h2 style="margin: 15px 0;">Yardımcı Elemanlar</h2>
+                    <h3>Yardımcı Elemanlar</h3>
                     <div class="p-bar"><div class="p-fill" style="width: 40%;"></div></div>
-                    <div style="display: flex; justify-content: space-between; font-weight: bold; color: #7C3AED;">
-                        <span>%40 Tamamlandı</span>
-                        <span>Devam Et →</span>
-                    </div>
+                    <div class="card-footer"><span>%40 Tamamlandı</span> <span>Devam Et →</span></div>
                 </div>
 
-                <div class="glass-card" onclick="openInfo()">
-                    <span style="background: #FEE2E2; color: #EF4444; padding: 4px 10px; border-radius: 8px; font-size: 10px; font-weight: bold;">✨ YENİ</span>
-                    <span style="font-size: 40px; display: block; margin-top: 10px;">📖</span>
-                    <h2>Bilgi Köşesi</h2>
-                    <p style="color: #64748b; font-size: 14px;">Katlayarak öğren: keşfet, dene, anla.</p>
-                    <span style="font-weight: bold; color: #3B82F6;">Keşfet →</span>
+                <div class="glass-card" onclick="startQuiz('esitsizlik')">
+                    <span style="font-size: 40px;">📐</span>
+                    <h3>Üçgen Eşitsizliği</h3>
+                    <p style="font-size: 12px; color: #64748b;">Kenarlar arasındaki ilişkiyi çöz!</p>
+                    <div class="card-footer" style="color:#3B82F6"><span>Başla →</span></div>
+                </div>
+
+                <div class="glass-card" onclick="startQuiz('aci-kenar')">
+                    <span style="font-size: 40px;">🔍</span>
+                    <h3>Açı-Kenar İlişkisi</h3>
+                    <p style="font-size: 12px; color: #64748b;">Büyük açı, büyük kenar!</p>
+                    <div class="card-footer" style="color:#3B82F6"><span>Başla →</span></div>
+                </div>
+
+                <div class="glass-card" onclick="startQuiz('pisagor')">
+                    <span style="font-size: 40px;">📐</span>
+                    <h3>Pisagor Bağıntısı</h3>
+                    <p style="font-size: 12px; color: #64748b;">Hipotenüsün gizemini bul.</p>
+                    <div class="card-footer" style="color:#3B82F6"><span>Başla →</span></div>
+                </div>
+
+                <div class="glass-card info-special" onclick="openInfo()">
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <span style="font-size: 30px;">📖</span>
+                        <div style="text-align: left;">
+                            <h3 style="margin:0">Bilgi Köşesi</h3>
+                            <p style="margin:0; font-size:12px; color:#64748b;">Katlayarak öğren: Keşfet, dene.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <footer>
-                Matematik Öğretmeni <strong>Esra İbiş</strong> tarafından cıvıl cıvıl hazırlandı ✨
+                Matematik Öğretmeni <strong>Esra İbiş</strong>
             </footer>
         </section>
 
-        <div id="quiz-area" class="hidden"> ... </div>
-        <div id="info-area" class="hidden"> ... </div>
-    </div>
+        <div id="quiz-area" class="hidden glass-card" style="margin-top: 50px;">
+            <div id="image-container"></div>
+            <h2 id="question-text" style="margin: 20px 0;"></h2>
+            <div id="options-container"></div>
+            <div id="hint-text" class="hidden"></div>
+            <button id="next-btn" class="hidden btn-pulse" style="width: 100%; margin-top: 20px;">Sonraki Soru ➔</button>
+            <button onclick="location.reload()" style="margin-top: 20px; background: none; border: none; color: #64748b; cursor: pointer;">✖ Testten Çık</button>
+        </div>
 
+        <div id="info-area" class="hidden glass-card" style="margin-top: 50px;">
+            <h2>Katlama Simülasyonu</h2>
+            <svg id="svg-folding-area" viewBox="0 0 200 250"></svg>
+            <div id="info-desc">Butonlara basarak katlamayı izle!</div>
+            <div class="grid" style="grid-template-columns: 1fr 1fr 1fr;">
+                <button class="opt-btn" onclick="animateFold('yukseklik')">Yükseklik</button>
+                <button class="opt-btn" onclick="animateFold('aciortay')">Açıortay</button>
+                <button class="opt-btn" onclick="animateFold('kenarortay')">Kenarortay</button>
+            </div>
+            <button onclick="location.reload()" style="margin-top: 30px; border: none; background: #7C3AED; color: white; padding: 10px 20px; border-radius: 10px; cursor: pointer;">Geri Dön</button>
+        </div>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>

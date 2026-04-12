@@ -21,8 +21,8 @@
 body {
     font-family: 'Manrope', sans-serif;
     background-color: var(--surface);
-    /* Noktaları (grid) PC monitörlerinde de görünür kılmak için rengi belirginleştirdik */
-    background-image: radial-gradient(rgba(148, 163, 184, 0.2) 1.5px, transparent 1.5px);
+    /* PC monitörlerinde noktaların (grid) kaybolmaması için opaklığı artırdık */
+    background-image: radial-gradient(rgba(185, 159, 255, 0.3) 1px, transparent 1px);
     background-size: 30px 30px;
     color: var(--on-surface);
     margin: 0; min-height: 100vh;

@@ -3,6 +3,8 @@
 :root {
     --grad-main: linear-gradient(135deg, #7C3AED, #3B82F6, #22D3EE);
     --bg-krem: #fcf8f2;
+    --mor: #7C3AED;
+    --mavi: #22D3EE;
 }
 
 body {
@@ -12,34 +14,36 @@ body {
     background-image: radial-gradient(#e2e8f0 0.8px, transparent 0.8px);
     background-size: 30px 30px;
     display: flex; justify-content: center; min-height: 100vh;
-    overflow-x: hidden; /* Kenardan taşan kareleri gizler */
+    overflow-x: hidden; /* Karelerin taşmasını önler */
 }
 
 .app-wrapper {
     width: 100%; max-width: 900px; padding: 40px 20px;
-    position: relative; z-index: 10;
+    position: relative; z-index: 1;
 }
 
-/* --- KARELERİN YERİNE YUMUŞAK BULUTLAR --- */
+/* --- KARELERİ ŞIK IŞIKLARA ÇEVİREN SİHİR --- */
 .shape {
     position: absolute;
-    z-index: -1; 
-    border-radius: 50%; /* Kareyi mutlaka yuvarlatıyoruz */
-    opacity: 0.15; /* Çok şeffaf yapıyoruz ki hata olsa bile göz yormasın */
-    filter: blur(60px); /* Blur değerini biraz düşürdük ki tarayıcı yorulmasın */
-    pointer-events: none;
-    animation: floatAnim 10s infinite alternate ease-in-out;
+    z-index: -1;
+    border-radius: 50%;
+    filter: blur(80px); /* Bulanıklık */
+    opacity: 0.15; /* Çok şeffaf */
+    pointer-events: none; /* Tıklamayı engellemez */
+    max-width: 40vw; /* Ekranın yarısından büyük olamazlar */
+    animation: float 15s infinite alternate ease-in-out;
 }
 
-@keyframes floatAnim {
-    from { transform: translate(0, 0); }
-    to { transform: translate(20px, 30px); }
+@keyframes float {
+    from { transform: translate(0, 0) rotate(0deg); }
+    to { transform: translate(30px, 50px) rotate(10deg); }
 }
 
-/* Diğer her şey aynı kalıyor */
+/* --- BAŞLIK VE METİNLER --- */
 h1 {
     font-family: 'Sora', sans-serif; font-size: 3.5rem; font-weight: 800;
     background: var(--grad-main); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    margin: 10px 0;
 }
 
 .btn-pulse {
@@ -47,21 +51,36 @@ h1 {
     color: white; border: none; padding: 18px 45px; border-radius: 50px;
     font-weight: 800; font-size: 18px; cursor: pointer;
     box-shadow: 0 10px 25px rgba(244, 114, 182, 0.3);
+    transition: 0.3s;
 }
+.btn-pulse:hover { transform: scale(1.05); }
 
+/* --- KARTLAR --- */
 .grid {
     display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 20px; margin-top: 40px;
 }
 
 .glass-card {
-    background: rgba(255, 255, 255, 0.8); /* Kartların arkası hafif şeffaf */
-    backdrop-filter: blur(10px); /* Kartların içine de hafif blur ekledik */
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
     border-radius: 25px; padding: 25px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-    border: 1px solid rgba(255,255,255,0.5);
+    border: 1px solid rgba(255, 255, 255, 0.5);
     cursor: pointer; transition: 0.3s;
+    display: flex; flex-direction: column;
 }
+.glass-card:hover { transform: translateY(-8px); border-color: var(--mor); }
+
+/* --- QUIZ & BİLGİ ALANI --- */
+.option-btn {
+    width: 100%; padding: 15px; margin: 8px 0;
+    background: white; border: 2px solid #f1f5f9;
+    border-radius: 15px; font-weight: 600; cursor: pointer;
+    transition: 0.2s; text-align: left;
+}
+.option-btn:hover { border-color: var(--mor); background: #f5f3ff; }
 
 .hidden { display: none !important; }
-footer { margin-top: 60px; text-align: center; color: #94a3b8; }
+
+footer { margin-top: 60px; text-align: center; color: #94a3b8; font-weight: 600; }

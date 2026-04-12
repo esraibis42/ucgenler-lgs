@@ -1,132 +1,88 @@
-/* EĞLENCELİ PASTEL GEOMETRİ TEMASI */
-@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;700&family=Poppins:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap');
 
 :root {
-    /* PASTEL RENK PALETİ */
-    --p-mor: #a29bfe;       /* Ana Tema */
-    --p-pembe: #ff85a1;     /* Başlık ve Vurgu */
-    --p-yesil: #55efc4;     /* Doğru Cevap */
-    --p-kirmizi: #ff7675;   /* Yanlış Cevap */
-    --p-sari: #ffeaa7;     /* Bilgi Köşesi Butonu */
-    --p-mavi: #74b9ff;      /* Arka Plan Geçişi */
-    
-    --beyaz: #ffffff;
-    --metin: #2d3436;       /* Koyu Gri - Okunabilirlik için */
+    --bg-krem: #fcf8f2;
+    --card-white: #ffffff;
+    --primary-mor: #a78bfa;
+    --primary-light: #ddd6fe;
+    --cta-pembe: #fb7185;
+    --success-yesil: #34d399;
+    --text-main: #1e293b;
+    --text-soft: #64748b;
+    --shadow-soft: 20px 20px 60px #d9d9d9, -20px -20px 60px #ffffff;
 }
 
-body { 
-    font-family: 'Poppins', sans-serif; 
-    /* ARKA PLAN: Yumuşak Pastel Geçişi ve Geometrik Desen */
-    background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
-    background-image: 
-        linear-gradient(135deg, rgba(162, 155, 254, 0.1) 25%, transparent 25%), 
-        linear-gradient(225deg, rgba(162, 155, 254, 0.1) 25%, transparent 25%), 
-        linear-gradient(45deg, rgba(162, 155, 254, 0.1) 25%, transparent 25%), 
-        linear-gradient(315deg, rgba(162, 155, 254, 0.1) 25%, transparent 25%);
-    background-position: 10px 0, 10px 0, 0 0, 0 0;
-    background-size: 20px 20px;
-    background-repeat: repeat;
-    
-    display: flex; justify-content: center; align-items: center;
-    min-height: 100vh; margin: 0; color: var(--metin);
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--bg-krem);
+    margin: 0; padding: 0;
+    color: var(--text-main);
+    display: flex; justify-content: center;
+    background-image: radial-gradient(#e2e8f0 0.8px, transparent 0.8px);
+    background-size: 30px 30px;
 }
 
-.container { 
-    width: 95%; max-width: 800px; 
-    background: rgba(255, 255, 255, 0.9); /* Yarı şeffaf beyaz cam */
-    backdrop-filter: blur(15px);
-    padding: 40px; border-radius: 30px; 
-    box-shadow: 0 20px 60px rgba(162, 155, 254, 0.15); /* Morumsu gölge */
-    border: 3px solid var(--p-mor);
-    text-align: center; position: relative;
-    overflow: hidden;
+.app-container {
+    width: 100%; max-width: 900px;
+    padding: 40px 20px;
 }
 
-/* Dekoratif Pastel Köşe Üçgeni */
-.container::after {
-    content: ""; position: absolute; top: -50px; right: -50px;
-    width: 100px; height: 100px; background: var(--p-pembe);
-    transform: rotate(45deg); opacity: 0.5;
+.top-nav {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 40px; background: rgba(255,255,255,0.6);
+    padding: 15px 25px; border-radius: 20px; backdrop-filter: blur(10px);
 }
 
-/* Eğlenceli Başlık */
-h1 {
-    font-family: 'Chakra Petch', sans-serif; /* Daha dijital/oyunsu font */
-    font-size: 3rem; font-weight: 700;
-    color: var(--p-mor);
-    text-shadow: 3px 3px 0px rgba(255, 133, 161, 0.3);
-    margin-bottom: 5px;
+.streak-badge { color: var(--cta-pembe); font-weight: 800; font-size: 14px; }
+.level-badge { background: var(--primary-mor); color: white; padding: 4px 12px; border-radius: 12px; font-size: 12px; }
+
+.hero { text-align: center; margin-bottom: 60px; }
+h1 { 
+    font-size: 3.5rem; font-weight: 800; margin: 0;
+    background: linear-gradient(135deg, var(--primary-mor), #818cf8);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 4px 4px rgba(0,0,0,0.05));
 }
 
-#kazanim-tag {
-    background: var(--p-pembe); color: var(--beyaz);
-    padding: 5px 15px; border-radius: 20px;
-    font-size: 12px; font-weight: bold;
+.btn-primary {
+    background: var(--cta-pembe); color: white; border: none;
+    padding: 18px 45px; border-radius: 20px; font-weight: 800; font-size: 18px;
+    cursor: pointer; box-shadow: 0 10px 25px rgba(251, 113, 133, 0.3);
+    transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-/* PASTEL BUTONLAR */
-.menu-grid {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 30px;
+.btn-primary:hover { transform: scale(1.05) translateY(-3px); box-shadow: 0 15px 35px rgba(251, 113, 133, 0.4); }
+
+.grid-container { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
+
+.card {
+    background: var(--card-white); padding: 30px; border-radius: 32px;
+    box-shadow: var(--shadow-soft); border: 1px solid rgba(255,255,255,0.5);
+    transition: 0.4s; cursor: pointer; position: relative; overflow: hidden;
+}
+.card:hover { transform: translateY(-10px); }
+
+.difficulty { font-size: 10px; font-weight: 800; padding: 4px 10px; border-radius: 8px; margin-bottom: 15px; display: inline-block; }
+.kolay { background: #d1fae5; color: #059669; }
+
+.progress-bar { width: 100%; height: 8px; background: #f1f5f9; border-radius: 10px; margin: 15px 0; }
+.progress-fill { height: 100%; background: var(--primary-mor); border-radius: 10px; }
+
+.info-card {
+    grid-column: span 2; background: linear-gradient(135deg, #fffbeb, #fef3c7);
+    border: 2px dashed var(--primary-mor); display: flex; justify-content: space-between; align-items: center;
 }
 
-.topic-btn {
-    padding: 25px 15px;
-    background: var(--beyaz);
-    border: 3px solid var(--p-mavi);
-    border-radius: 20px;
-    color: var(--p-mavi);
-    font-size: 18px; font-weight: 700;
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-    box-shadow: 0 8px 0px var(--p-mavi); /* 3D Buton efekti */
-}
-
-.topic-btn:hover { 
-    transform: translateY(3px);
-    box-shadow: 0 4px 0px var(--p-mavi);
-    background: #f1f9ff;
-}
-
-/* Vurgulu Bilgi Köşesi Butonu */
-.topic-btn-highlight {
-    background: var(--p-sari);
-    border-color: #f1c40f;
-    color: #8e6e16;
-    box-shadow: 0 8px 0px #f1c40f;
-}
-.topic-btn-highlight:hover {
-    box-shadow: 0 4px 0px #f1c40f;
-    background: #fff8e1;
-}
-
-/* Şık Butonları */
-.option-btn {
-    width: 100%; padding: 15px; margin: 10px 0;
-    background: var(--beyaz);
-    border: 2px solid #ddd; border-radius: 12px;
-    color: var(--metin); font-size: 16px; font-weight: 600;
-    cursor: pointer; transition: 0.2s; text-align: left;
-}
-.option-btn:hover { border-color: var(--p-mor); background: #f9f8ff; }
-
-/* SVG Katlama Alanı */
 #svg-folding-area {
-    width: 100%; max-width: 450px; height: 320px;
-    margin: 20px auto; background: var(--beyaz);
-    border: 3px solid var(--p-mor); border-radius: 20px;
-    display: block; box-shadow: 0 10px 30px rgba(162, 155, 254, 0.1);
+    width: 100%; max-width: 450px; height: 320px; background: white; border-radius: 20px; display: block; margin: 20px auto;
 }
 
-#info-desc {
-    background: #fffbea; color: #8e6e16;
-    padding: 15px; border-radius: 12px;
-    border-left: 5px solid var(--p-sari);
-    margin: 20px 0; font-weight: 600;
+@keyframes foldEffect {
+    0% { transform: scaleX(1); }
+    50% { transform: scaleX(0.1) skewY(5deg); }
+    100% { transform: scaleX(1); }
 }
+
+.triangle-animate { animation: foldEffect 1.2s ease-in-out; transform-origin: center bottom; }
 
 .hidden { display: none; }
-
-footer {
-    margin-top: 40px; font-size: 13px; color: #a0a0a0;
-    border-top: 1px solid #eee; padding-top: 15px;
-}

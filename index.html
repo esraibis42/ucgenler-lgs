@@ -22,78 +22,55 @@
             <span style="border: 1px solid var(--secondary); color: var(--secondary); padding: 6px 15px; border-radius: 20px; font-weight: bold; font-size: 10px;">📉 +1200 ÖĞRENCİ BAŞLADI</span>
             <h1>△ Geometri Kampı</h1>
             <p style="color: var(--on-surface-variant); font-size: 18px; font-family:'Manrope',sans-serif;">Hangi konuyu fethetmek istersin Esra Hocam?</p>
-            
-            <div style="margin: 40px 0;">
-                <button class="btn-primary" onclick="document.getElementById('konu-baslik').scrollIntoView({behavior: 'smooth'})">Hemen Başla 🚀</button>
-            </div>
-
+            <div style="margin: 40px 0;"><button class="btn-primary" onclick="document.getElementById('konu-baslik').scrollIntoView({behavior: 'smooth'})">Hemen Başla 🚀</button></div>
             <h2 id="konu-baslik" style="margin-top: 80px; font-family:'Space Grotesk',sans-serif; color: var(--on-surface);">Konu Listesi</h2>
             <div class="grid">
                 <div class="glass-card featured" onclick="startQuiz('yardimci')">
-                    <div style="position: absolute; top: 15px; right: 20px; background: var(--tertiary); color: var(--surface); padding: 4px 10px; border-radius: 8px; font-size: 10px; font-weight: bold;">[ TREND KONU ]</div>
                     <span style="font-size: 40px; margin-bottom: 20px;">📏</span>
-                    <h3 style="font-family:'Space Grotesk',sans-serif; margin:0;">Yardımcı Elemanlar</h3>
+                    <h3>Yardımcı Elemanlar</h3>
                     <div class="p-bar"><div class="p-fill" style="width: 0%;"></div></div>
-                    <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 12px; color: var(--primary);">
-                        <span id="progress-text">%0 Tamamlandı</span> <span>Devam Et →</span>
-                    </div>
+                    <span id="progress-text">%0 Tamamlandı</span>
                 </div>
-
                 <div class="glass-card" onclick="openTopicSelection()" style="background: linear-gradient(135deg, rgba(167, 139, 250, 0.2), rgba(245, 158, 11, 0.2));">
                     <span style="font-size: 40px; margin-bottom: 20px;">🔀</span>
-                    <h3 style="font-family:'Space Grotesk',sans-serif; margin:0;">Eşlik ve Benzerlik</h3>
-                    <p style="font-size: 12px; color: var(--on-surface-variant);">Şekillerin benzerlik sırları...</p>
+                    <h3>Eşlik ve Benzerlik</h3>
                     <div style="font-weight: bold; color: var(--secondary); margin-top: 10px;">Hemen Başla →</div>
                 </div>
-
                 <div class="glass-card info-special" onclick="openInfo()">
-                    <div style="display: flex; align-items: center; gap: 20px;">
-                        <span style="font-size: 35px;">📖</span>
-                        <div style="text-align: left;">
-                            <span style="background: var(--primary-dim); color:white; font-size:9px; padding:2px 6px; border-radius:4px;">YENİ ✨</span>
-                            <h3 style="font-family:'Space Grotesk',sans-serif; margin:5px 0 0 0;">Bilgi Köşesi: Katlama</h3>
-                        </div>
-                    </div>
+                    <span style="font-size: 35px;">📖</span>
+                    <h3>Bilgi Köşesi: Katlama</h3>
                 </div>
             </div>
-            
-            <footer>
-                Matematik Öğretmeni <strong>Esra İbiş</strong> tarafından cıvıl cıvıl hazırlandı ✨
-            </footer>
+            <footer>Matematik Öğretmeni <strong>Esra İbiş</strong> tarafından hazırlandı ✨</footer>
         </section>
 
         <div id="selection-area" class="hidden glass-card" style="margin-top: 50px; text-align: center;">
             <h2 style="font-family:'Space Grotesk',sans-serif;">Ünite Seçiniz</h2>
             <div class="grid" style="grid-template-columns: 1fr 1fr; gap: 20px;">
-                <div class="glass-card" onclick="showInfoScreen('eslik')" style="border:1px solid var(--primary); cursor: pointer;">
-                    <h3>📐 Eşlik</h3>
-                </div>
-                <div class="glass-card" onclick="showInfoScreen('benzerlik')" style="border:1px solid var(--secondary); cursor: pointer;">
-                    <h3>🔺 Benzerlik</h3>
-                </div>
+                <div class="glass-card" onclick="showInfoScreen('eslik')" style="border:1px solid var(--primary);"><h3>📐 Eşlik</h3></div>
+                <div class="glass-card" onclick="showInfoScreen('benzerlik')" style="border:1px solid var(--secondary);"><h3>🔺 Benzerlik</h3></div>
             </div>
             <button class="btn-primary" onclick="location.reload()" style="margin-top: 20px; background: none; border: 1px solid gray; color: gray;">✖ Vazgeç</button>
         </div>
 
         <div id="quiz-area" class="hidden glass-card" style="margin-top: 50px; text-align: center;">
             <div id="image-container"></div>
-            <h2 id="question-text" style="font-family:'Space Grotesk',sans-serif; margin: 30px 0;"></h2>
+            <h2 id="question-text"></h2>
             <div id="options-container" style="display: flex; flex-direction: column; gap: 10px;"></div>
             <div id="hint-text" class="hidden" style="color: var(--tertiary); margin-top: 20px; font-style: italic;"></div>
             <button id="next-btn" class="hidden btn-primary" style="width: 100%; margin-top: 20px;">Sonraki Soru ➔</button>
-            <button onclick="location.reload()" style="margin-top: 20px; background: none; border: none; color: var(--on-surface-variant); cursor: pointer;">✖ Menüye Dön</button>
+            <button onclick="location.reload()" style="margin-top: 20px; background: none; color: gray; cursor: pointer;">✖ Menüye Dön</button>
         </div>
 
         <div id="info-area" class="hidden glass-card" style="margin-top: 50px; text-align: center;">
             <h2 style="font-family:'Space Grotesk',sans-serif;">İnteraktif Katlama</h2>
             <svg id="svg-folding-area" viewBox="0 0 200 250"></svg>
-            <div id="info-desc" style="background: rgba(185, 159, 255, 0.05); color: var(--on-surface); padding: 15px; border-radius: 12px; margin: 20px 0;">Butonlara basarak katlamayı izle!</div>
-            <div class="grid" style="grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 20px;">
-                <button class="opt-btn" style="background: var(--surface-container); color: white; border: 1px solid var(--primary); padding: 10px; border-radius: 8px; cursor: pointer;" onclick="animateFold('yukseklik')">Yükseklik</button>
-                <button class="opt-btn" style="background: var(--surface-container); color: white; border: 1px solid var(--primary); padding: 10px; border-radius: 8px; cursor: pointer;" onclick="animateFold('aciortay')">Açıortay</button>
-                <button class="opt-btn" style="background: var(--surface-container); color: white; border: 1px solid var(--primary); padding: 10px; border-radius: 8px; cursor: pointer;" onclick="animateFold('kenarortay')">Kenarortay</button>
+            <div class="grid" style="grid-template-columns: 1fr 1fr 1fr; gap: 10px;">
+                <button class="opt-btn" onclick="animateFold('yukseklik')">Yükseklik</button>
+                <button class="opt-btn" onclick="animateFold('aciortay')">Açıortay</button>
+                <button class="opt-btn" onclick="animateFold('kenarortay')">Kenarortay</button>
             </div>
-            <button onclick="location.reload()" style="margin-top: 30px; border: none; background: var(--surface); color: var(--tertiary); padding: 10px 20px; border-radius: 12px; cursor: pointer; font-weight: bold;">➡ Geri Dön</button>
+            <button onclick="location.reload()" style="margin-top: 30px;">➡ Geri Dön</button>
         </div>
     </div>
     <script src="script.js"></script>

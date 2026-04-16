@@ -20,11 +20,14 @@ const allQuestions = {
 
     // 3. ÜNİTE: BENZERLİK
     benzerlik: [
-        { id: 1, text: "Büyük üçgenin küçük üçgene benzerlik oranı kaçtır?", image: "images/benzerlik2.png", options: ["A) 1/2", "B) 2/3", "C) 3/4", "D) 4/5"], answer: "C) 3/4", hints: ["Kenarları oranla: 24/18 = 4/3 veya 3/4"] },
-        { id: 2, text: "Kırmızı kartonun çevresinin uzunluğu kaç santimetredir?", image: "images/benzerlik3.png", options: ["A) 32", "B) 34", "C) 36", "D) 40"], answer: "B) 34", hints: ["Benzerlik oranını kullan."] },
-        { id: 3, text: "Verilenlere göre x + y toplamı kaçtır?", image: "images/benzerlik5.png", options: ["A) 22", "B) 24", "C) 28", "D) 30"], answer: "C) 28", hints: ["Oran kurup x ve y'yi bul."] },
-        { id: 4, text: "Çubuk ile duvar arasındaki uzaklık (x) kaç cm'dir?", image: "images/benzerlik7.png", options: ["A) 150", "B) 200", "C) 250", "D) 300"], answer: "B) 200", hints: ["Tales teoremi: 50 / (50+x) = 24 / 120"] }
-    ],
+        { id: 1, text: "Büyük üçgenin küçük üçgene benzerlik oranı kaçtır? (Sadece rakam yazınız)", image: "images/benzerlik1.png", options: ["1", "2", "3", "4"], answer: "2", hints: ["8/4 veya 10/5 oranına bakınız."] },
+        { id: 2, text: "Görsele göre benzerlik oranı hangisi olabilir?", image: "images/benzerlik2.png", options: ["A) 1/2", "B) 2/3", "C) 3/4", "D) 4/5"], answer: "B) 2/3", hints: ["Kenarları oranlayın: 18/24 = 3/4 (Görseli tekrar kontrol et)."] },
+        { id: 3, text: "Kırmızı kartonun çevresinin uzunluğu kaç santimetredir?", image: "images/benzerlik3.png", options: ["A) 32", "B) 34", "C) 36", "D) 40"], answer: "C) 36", hints: ["Benzerlik oranını 15/12 üzerinden kurun."] },
+        { id: 4, text: "Verilen benzerlik ilişkisine göre x kaçtır?", image: "images/benzerlik4.png", options: ["A) 12", "B) 15", "C) 18", "D) 20"], answer: "C) 18", hints: ["Karşılıklı kenarların oranını eşitleyin."] },
+        { id: 5, text: "Verilenlere göre x + y toplamı kaçtır?", image: "images/benzerlik5.png", options: ["A) 28", "B) 24", "C) 22", "D) 20"], answer: "A) 28", hints: ["8/12 = 12/x ve 8/12 = y/24 denklemlerini çözün."] },
+        { id: 6, text: "Görseldeki benzerlik oranına göre verilmeyen kenar kaçtır?", image: "images/benzerlik6.png", options: ["A) 10", "B) 12", "C) 15", "D) 18"], answer: "C) 15", hints: ["Üçgenlerin benzerlik oranını belirleyin."] },
+        { id: 7, text: "Çubuk ile duvar arasındaki uzaklık (x) kaç cm'dir?", image: "images/benzerlik7.png", options: ["A) 150", "B) 200", "C) 250", "D) 300"], answer: "B) 200", hints: ["Temel benzerlik: 50 / (50+x) = 24 / 120"] }
+    ]
 
     esitsizlik: [], "aci-kenar": [], pisagor: []
 };

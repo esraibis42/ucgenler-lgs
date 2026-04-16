@@ -18,9 +18,30 @@ const allQuestions = {
         { id: 1, text: "Büyük üçgenin küçük üçgene benzerlik oranı kaçtır?", image: "images/benzerlik1.png", options: ["1", "2", "3", "4"], answer: "2", hints: ["8/4 veya 10/5 oranına bakınız."] },
         { id: 2, text: "Görsele göre benzerlik oranı hangisi olabilir?", image: "images/benzerlik2.png", options: ["A) 1/2", "B) 2/3", "C) 3/4", "D) 4/5"], answer: "B) 2/3", hints: ["18/24 oranını sadeleştirin."] },
         { id: 3, text: "Kırmızı kartonun çevresinin uzunluğu kaç santimetredir?", image: "images/benzerlik3.png", options: ["A) 32", "B) 34", "C) 36", "D) 40"], answer: "C) 36", hints: ["15/12 oranını kullanarak çevreyi bulun."] },
-        { id: 4, text: "Verilen benzerlik ilişkisine göre x kaçtır?", image: "images/benzerlik4.png", options: ["A) 12", "B) 15", "C) 18", "D) 20"], answer: "C) 18", hints: ["Kenarlar arasındaki oranı kurun."] },
-        { id: 5, text: "Verilenlere göre x + y toplamı kaçtır?", image: "images/benzerlik5.png", options: ["A) 28", "B) 24", "C) 22", "D) 20"], answer: "A) 28", hints: ["8/12 oranından x ve y'yi hesaplayın."] },
-        { id: 6, text: "Görseldeki benzerlik oranına göre verilmeyen kenar kaçtır?", image: "images/benzerlik6.png", options: ["A) 10", "B) 12", "C) 15", "D) 18"], answer: "C) 15", hints: ["Benzerlik oranını uygulayın."] },
+       { 
+        id: 4, 
+        text: "Verilen dik üçgenlere göre |DE| + |EF| toplamı kaç santimetredir?", 
+        image: "images/benzerlik4.png", 
+        options: ["A) 46", "B) 54", "C) 92", "D) 108"], 
+        answer: "C) 92", 
+        hints: ["Benzerlik oranı 3/2'dir. DE = 24, EF = 45 bulunur (Görseldeki değerlere göre tekrar hesapla)."] 
+    },
+    { 
+        id: 5, 
+        text: "Verilen benzerlik ilişkisine göre x + y toplamı kaçtır?", 
+        image: "images/benzerlik5.png", 
+        options: ["A) 28", "B) 24", "C) 22", "D) 20"], 
+        answer: "A) 28", 
+        hints: ["8/12 benzerlik oranını kullan: x = 18, y = 16 bulunur (8/12 = 12/x ve 8/12 = y/24)."] 
+    },
+    { 
+        id: 6, 
+        text: "Kırmızı ve sarı bölgelerin benzer olması için en az kaç tane birim kare sarıya boyanmalıdır?", 
+        image: "images/benzerlik6.png", 
+        options: ["A) 9", "B) 10", "C) 12", "D) 16"], 
+        answer: "C) 12", 
+        hints: ["Kırmızı bölge 3x4'lük bir alan. Benzerlik oranına göre sarı bölgeyi oluşturun."] 
+    }
         { id: 7, text: "Çubuk ile duvar arasındaki uzaklık (x) kaç cm'dir?", image: "images/benzerlik7.png", options: ["A) 150", "B) 200", "C) 250", "D) 300"], answer: "B) 200", hints: ["50 / (50+x) = 24 / 120"] }
     ]
 };

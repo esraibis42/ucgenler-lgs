@@ -19,8 +19,8 @@ const allQuestions = {
         { id: 2, text: "Görsele göre benzerlik oranı hangisi olabilir?", image: "images/benzerlik2.png", options: ["A) 1/2", "B) 2/3", "C) 3/4", "D) 4/5"], answer: "B) 2/3", hints: ["18/24 oranını sadeleştirin."] },
         { id: 3, text: "Kırmızı kartonun çevresinin uzunluğu kaç santimetredir?", image: "images/benzerlik3.png", options: ["A) 32", "B) 34", "C) 36", "D) 40"], answer: "C) 36", hints: ["15/12 oranını kullanarak çevreyi bulun."] },
         { id: 4, text: "Verilen dik üçgenlere göre |DE| + |EF| toplamı kaç santimetredir?", image: "images/benzerlik4.png", options: ["A) 46", "B) 54", "C) 92", "D) 108"], answer: "C) 92", hints: ["Benzerlik oranından DE=24, EF=45 bulunur."] },
-        { id: 5, text: "Verilen benzerlik ilişkisine göre x + y toplamı kaçtır?", image: "images/benzerlik5.png", options: ["A) 22", "B) 24", "C) 28", "D) 30"], answer: "A) 22", hints: ["Oran kurun ve x+y'yi bulun."] },
-        { id: 6, text: "Kırmızı ve sarı bölgelerin benzer olması için en az kaç tane birim kare sarıya boyanmalıdır?", image: "images/benzerlik6.png", options: ["A) 9", "B) 10", "C) 12", "D) 16"], answer: "C) 12", hints: ["Kırmızı bölge 3x4'lük. Oran kurun."] },
+        { id: 5, text: "Verilen benzerlik ilişkisine göre x + y toplamı kaçtır?", image: "images/benzerlik5.png", options: ["A) 22", "B) 24", "C) 28", "D) 30"], answer: "A) 22", hints: ["8/12 oranını kullanın (x=18, y=16)."] },
+        { id: 6, text: "Kırmızı ve sarı bölgelerin benzer olması için en az kaç tane birim kare sarıya boyanmalıdır?", image: "images/benzerlik6.png", options: ["A) 9", "B) 10", "C) 12", "D) 16"], answer: "C) 12", hints: ["Kırmızı 3x4. Benzerlik oranına göre sarıyı hesaplayın."] },
         { id: 7, text: "Çubuk ile duvar arasındaki uzaklık (x) kaç cm'dir?", image: "images/benzerlik7.png", options: ["A) 150", "B) 200", "C) 250", "D) 300"], answer: "B) 200", hints: ["50 / (50+x) = 24 / 120"] }
     ],
     esitsizlik: [], "aci-kenar": [], pisagor: []
@@ -29,30 +29,39 @@ const allQuestions = {
 let currentQuestions = [];
 let currentIdx = 0;
 
+// 1. ANA MENÜDEN TEST BAŞLATMA (YARDIMCI ELEMANLAR İÇİN)
+window.startQuiz = function(topic) {
+    currentQuestions = allQuestions[topic];
+    currentIdx = 0;
+    document.getElementById("menu-area").classList.add("hidden");
+    document.getElementById("selection-area").classList.add("hidden"); // Varsa seçim alanını kapat
+    document.getElementById("quiz-area").classList.remove("hidden");
+    loadQuestion();
+};
+
+// 2. EŞLİK/BENZERLİK SEÇİM EKRANINI AÇMA
 window.openTopicSelection = function() {
     document.getElementById("menu-area").classList.add("hidden");
     document.getElementById("selection-area").classList.remove("hidden");
 };
 
+// 3. BİLGİ EKRANI (Bunun içinden startQuiz çağrılır)
 window.showInfoScreen = function(topic) {
     const infoImg = (topic === 'eslik') ? "images/eslikbilgi.png" : "images/benzerlikbilgi.png";
     document.getElementById("selection-area").classList.add("hidden");
     document.getElementById("quiz-area").classList.remove("hidden");
+    
     document.getElementById("image-container").innerHTML = `
         <div style="text-align:center;">
             <img src="${infoImg}" style="width:100%; border-radius:15px; margin-bottom:15px; border: 2px solid var(--primary);">
-            <button class="btn-primary" onclick="window.startQuiz('${topic}')">Sorulara Geç! 🚀</button>
+            <button class="btn-primary" onclick="window.startQuiz('${topic}')" style="width:100%;">Anladım, Sorulara Geç! 🚀</button>
         </div>`;
-    document.getElementById("question-text").innerText = "Bilgi Ekranı";
+    document.getElementById("question-text").innerText = "Ön Bilgilendirme";
     document.getElementById("options-container").innerHTML = "";
+    document.getElementById("next-btn").classList.add("hidden");
 };
 
-window.startQuiz = function(topic) {
-    currentQuestions = allQuestions[topic];
-    currentIdx = 0;
-    loadQuestion();
-};
-
+// 4. SORU YÜKLEME MANTIĞI
 function loadQuestion() {
     const q = currentQuestions[currentIdx];
     document.getElementById("question-text").innerText = q.text;
@@ -67,7 +76,7 @@ function loadQuestion() {
     q.options.forEach(opt => {
         const b = document.createElement("button");
         b.className = "option-btn";
-        b.style.cssText = "width:100%; padding:15px; margin:5px 0; border-radius:12px; background:rgba(255,255,255,0.05); color:white; cursor:pointer;";
+        b.style.cssText = "width:100%; padding:15px; margin:5px 0; border-radius:12px; background:rgba(255,255,255,0.05); color:white; cursor:pointer; border: 1px solid rgba(255,255,255,0.1);";
         b.innerText = opt;
         b.onclick = () => {
             if(opt.includes(q.answer)) {
@@ -88,6 +97,7 @@ document.getElementById("next-btn").onclick = () => {
     else { alert("Tebrikler Esra Hocam! Üniteyi bitirdin."); location.reload(); }
 };
 
+// 5. KATLAMA BİLGİSİ SİSTEMİ
 window.openInfo = function() {
     document.getElementById("menu-area").classList.add("hidden");
     document.getElementById("info-area").classList.remove("hidden");
@@ -97,13 +107,38 @@ window.animateFold = function(type) {
     const svg = document.getElementById("svg-folding-area");
     const ns = "http://www.w3.org/2000/svg";
     svg.innerHTML = ""; 
+    
+    // Ana Üçgen Arka Planı
+    const mainTri = document.createElementNS(ns, "polygon");
+    mainTri.setAttribute("points", "100,50 40,220 160,220");
+    mainTri.style.fill = "rgba(185, 159, 255, 0.1)";
+    mainTri.style.stroke = "rgba(185, 159, 255, 0.3)";
+    svg.appendChild(mainTri);
+
     const folder = document.createElementNS(ns, "polygon");
     folder.setAttribute("points", "100,50 40,220 100,220");
     folder.style.fill = "rgba(124, 58, 237, 0.5)";
     folder.style.transition = "transform 1s";
-    let transform = "";
-    if(type === 'aciortay') transform = "rotate(25deg)";
-    else if(type === 'yukseklik') transform = "rotateY(-180deg)";
+    
+    let transform = "", lineX2 = "100";
+    if(type === 'aciortay') {
+        folder.style.transformOrigin = "100px 50px";
+        transform = "rotate(25deg)";
+        lineX2 = "125";
+    } else if(type === 'yukseklik') {
+        folder.style.transformOrigin = "100px 135px";
+        transform = "rotateY(-180deg)";
+    }
+
     svg.appendChild(folder);
-    setTimeout(() => { folder.style.transform = transform; }, 100);
+    setTimeout(() => { 
+        folder.style.transform = transform; 
+        setTimeout(() => {
+            const line = document.createElementNS(ns, "line");
+            line.setAttribute("x1","100"); line.setAttribute("y1","50");
+            line.setAttribute("x2",lineX2); line.setAttribute("y2","220");
+            line.setAttribute("stroke","red"); line.setAttribute("stroke-dasharray","5,5");
+            svg.appendChild(line);
+        }, 1000);
+    }, 100);
 };

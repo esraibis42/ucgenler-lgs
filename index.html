@@ -13,13 +13,13 @@
 
         <nav style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 50px; position: relative; z-index: 10;">
             <div style="font-weight: 700; color: var(--tertiary); font-size: 14px; font-family:'Space Grotesk',sans-serif;">[🔥 3 GÜN SERİ ]</div>
-            <div style="background: rgba(255,255,255,0.03); padding: 10px 25px; border-radius: var(--radius-xl); font-weight: 600; font-size: 13px; color: var(--on-surface);">
+            <div style="background: rgba(255,255,255,0.03); padding: 10px 25px; border-radius: 20px; font-weight: 600; font-size: 13px; color: var(--on-surface);">
                 Esra İbiş 🎓 • SEVİYE 2
             </div>
         </nav>
 
         <section id="menu-area" class="hero" style="text-align: center;">
-            <span style="border: 1px solid var(--secondary); color: var(--secondary); padding: 6px 15px; border-radius: var(--radius-full); font-weight: bold; font-size: 10px;">📉 +1200 ÖĞRENCİ BAŞLADI</span>
+            <span style="border: 1px solid var(--secondary); color: var(--secondary); padding: 6px 15px; border-radius: 20px; font-weight: bold; font-size: 10px;">📉 +1200 ÖĞRENCİ BAŞLADI</span>
             <h1 style="display-flex; align-items:center; justify-content:center; gap:10px;">△ Geometri Kampı</h1>
             <p style="color: var(--on-surface-variant); font-size: 18px; font-family:'Manrope',sans-serif;">Hangi konuyu fethetmek istersin Esra Hocam?</p>
             
@@ -30,20 +30,20 @@
             <h2 id="konu-baslik" style="margin-top: 80px; font-family:'Space Grotesk',sans-serif; color: var(--on-surface);">Konu Listesi</h2>
             <div class="grid">
                 <div class="glass-card featured" onclick="startQuiz('yardimci')">
-                    <div style="position: absolute; top: 15px; right: 20px; background: var(--tertiary); color: var(--surface); padding: 4px 10px; border-radius: 8px; font-size: 10px; font-weight: bold;">[ TREND KOMU ]</div>
+                    <div style="position: absolute; top: 15px; right: 20px; background: var(--tertiary); color: var(--surface); padding: 4px 10px; border-radius: 8px; font-size: 10px; font-weight: bold;">[ TREND KONU ]</div>
                     <span style="font-size: 40px; margin-bottom: 20px;">📏</span>
                     <h3 style="font-family:'Space Grotesk',sans-serif; margin:0;">Yardımcı Elemanlar</h3>
-                    <div class="p-bar"><div class="p-fill" style="width: 40%;"></div></div>
+                    <div class="p-bar"><div class="p-fill" style="width: 0%;"></div></div>
                     <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 12px; color: var(--primary);">
-                        <span>%40 Tamamlandı</span> <span>Devam Et →</span>
+                        <span id="progress-text">%0 Tamamlandı</span> <span>Devam Et →</span>
                     </div>
                 </div>
 
-                <div class="glass-card">
-                    <span style="font-size: 40px; margin-bottom: 20px;">📐</span>
-                    <h3 style="font-family:'Space Grotesk',sans-serif; margin:0;">Üçgen Eşitsizliği</h3>
-                    <p style="font-size: 12px; color: var(--on-surface-variant);">Yakında...</p>
-                    <div style="font-weight: bold; color: var(--on-surface-variant);">[ Beklemede ]</div>
+                <div class="glass-card" onclick="alert('Eşlik ve Benzerlik ünitesi çok yakında!')" style="background: linear-gradient(135deg, rgba(167, 139, 250, 0.1), rgba(245, 158, 11, 0.1));">
+                    <span style="font-size: 40px; margin-bottom: 20px;">🔀</span>
+                    <h3 style="font-family:'Space Grotesk',sans-serif; margin:0;">Eşlik ve Benzerlik</h3>
+                    <p style="font-size: 12px; color: var(--on-surface-variant);">Şekillerin benzerlik sırları...</p>
+                    <div style="font-weight: bold; color: var(--on-surface-variant); margin-top: 10px;">[ YAKINDA ]</div>
                 </div>
 
                 <div class="glass-card info-special" onclick="openInfo()">
@@ -74,13 +74,13 @@
         <div id="info-area" class="hidden glass-card" style="margin-top: 50px; text-align: center;">
             <h2 style="font-family:'Space Grotesk',sans-serif;">İnteraktif Katlama</h2>
             <svg id="svg-folding-area" viewBox="0 0 200 250"></svg>
-            <div id="info-desc" style="background: rgba(185, 159, 255, 0.05); color: var(--on-surface); padding: 15px; border-radius: var(--radius-xl); margin: 20px 0;">Butonlara basarak katlamayı izle!</div>
+            <div id="info-desc" style="background: rgba(185, 159, 255, 0.05); color: var(--on-surface); padding: 15px; border-radius: 12px; margin: 20px 0;">Butonlara basarak katlamayı izle!</div>
             <div class="grid" style="grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 20px;">
-                <button class="opt-btn btn-glass" onclick="animateFold('yukseklik')">Yükseklik</button>
-                <button class="opt-btn btn-glass" onclick="animateFold('aciortay')">Açıortay</button>
-                <button class="opt-btn btn-glass" onclick="animateFold('kenarortay')">Kenarortay</button>
+                <button class="opt-btn" style="background: var(--surface-container); color: white; border: 1px solid var(--primary); padding: 10px; border-radius: 8px; cursor: pointer;" onclick="animateFold('yukseklik')">Yükseklik</button>
+                <button class="opt-btn" style="background: var(--surface-container); color: white; border: 1px solid var(--primary); padding: 10px; border-radius: 8px; cursor: pointer;" onclick="animateFold('aciortay')">Açıortay</button>
+                <button class="opt-btn" style="background: var(--surface-container); color: white; border: 1px solid var(--primary); padding: 10px; border-radius: 8px; cursor: pointer;" onclick="animateFold('kenarortay')">Kenarortay</button>
             </div>
-            <button onclick="location.reload()" style="margin-top: 30px; border: none; background: var(--surface); color: var(--tertiary); padding: 10px 20px; border-radius: var(--radius-xl); cursor: pointer; font-weight: bold;">➡ Geri Dön</button>
+            <button onclick="location.reload()" style="margin-top: 30px; border: none; background: var(--surface); color: var(--tertiary); padding: 10px 20px; border-radius: 12px; cursor: pointer; font-weight: bold;">➡ Geri Dön</button>
         </div>
     </div>
     <script src="script.js"></script>

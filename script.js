@@ -19,7 +19,7 @@ const allQuestions = {
         { id: 2, text: "Görsele göre benzerlik oranı hangisi olabilir?", image: "images/benzerlik2.png", options: ["A) 1/2", "B) 2/3", "C) 3/4", "D) 4/5"], answer: "B) 2/3", hints: ["18/24 oranını sadeleştirin."] },
         { id: 3, text: "Kırmızı kartonun çevresinin uzunluğu kaç santimetredir?", image: "images/benzerlik3.png", options: ["A) 32", "B) 34", "C) 36", "D) 40"], answer: "C) 36", hints: ["15/12 oranını kullanarak çevreyi bulun."] },
         { id: 4, text: "Verilen dik üçgenlere göre |DE| + |EF| toplamı kaç santimetredir?", image: "images/benzerlik4.png", options: ["A) 46", "B) 54", "C) 92", "D) 108"], answer: "C) 92", hints: ["Benzerlik oranından DE=24, EF=45 bulunur."] },
-        { id: 5, text: "Verilen benzerlik ilişkisine göre x + y toplamı kaçtır?", image: "images/benzerlik5.png", options: ["A) 22", "B) 24", "C) 28", "D) 30"], answer: "A) 22", hints: ["8/12 oranını kullanın."] },
+        { id: 5, text: "Verilen benzerlik ilişkisine göre x + y toplamı kaçtır?", image: "images/benzerlik5.png", options: ["A) 22", "B) 24", "C) 28", "D) 30"], answer: "A) 22", hints: ["Oran kurun ve x+y'yi bulun."] },
         { id: 6, text: "Kırmızı ve sarı bölgelerin benzer olması için en az kaç tane birim kare sarıya boyanmalıdır?", image: "images/benzerlik6.png", options: ["A) 9", "B) 10", "C) 12", "D) 16"], answer: "C) 12", hints: ["Kırmızı bölge 3x4'lük. Oran kurun."] },
         { id: 7, text: "Çubuk ile duvar arasındaki uzaklık (x) kaç cm'dir?", image: "images/benzerlik7.png", options: ["A) 150", "B) 200", "C) 250", "D) 300"], answer: "B) 200", hints: ["50 / (50+x) = 24 / 120"] }
     ],
@@ -85,7 +85,7 @@ function loadQuestion() {
 document.getElementById("next-btn").onclick = () => {
     currentIdx++;
     if(currentIdx < currentQuestions.length) loadQuestion();
-    else { alert("Tebrikler! Üniteyi bitirdin."); location.reload(); }
+    else { alert("Tebrikler Esra Hocam! Üniteyi bitirdin."); location.reload(); }
 };
 
 window.openInfo = function() {

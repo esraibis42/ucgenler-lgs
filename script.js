@@ -1,7 +1,7 @@
 const allQuestions = {
     yardimci: [
         { id: 1, text: "Soruyu resme göre cevaplayınız:", image: "images/yukseklik1.png", options: ["A) 32", "B) 28", "C) 24", "D) 18"], answer: "A) 32", hints: ["Alan sabit: 6x24 = 8x?"] },
-        { id: 2, text: "Soruyu resme göre cevaplayınız:", image: "images/yukseklik2.png", options: ["A) 4,8", "B) 5,2", "C) 9,6", "D) 10,4"], answer: "C) 9,6", hints: ["12x16 = 20xh"] },
+        { id: 2, text: "Soruyu resme göre cevaplayınız:", image: "images/yukseklik2.png", options: ["A) 4,8", "B) 5,2", "C) 9,6", "D) 10,4"], answer: "C) 9,6", hints: ["Dik kenarlar çarpımı = Hipotenüs x Yükseklik."] },
         { id: 3, text: "Yükseklikler hangi noktada kesişir?", image: "images/yukseklik3.png", options: ["A) A", "B) K", "C) L", "D) N"], answer: "C) L", hints: ["Dar açılı üçgenlerde kesim noktası içeridedir."] },
         { id: 4, text: "FH kenarına ait yükseklik kaç cm'dir?", image: "images/yukseklik4.png", options: ["A) 22", "B) 18", "C) 17", "D) 15"], answer: "D) 15", hints: ["Karenin alanı 49 ise kenarı 7'dir."] },
         { id: 5, text: "Hangisinde yükseklikler bir köşede kesişir?", image: "images/yukseklik5.png", options: ["A)", "B)", "C)", "D)"], answer: "C)", hints: ["Sadece DİK üçgenlerde yükseklikler köşede kesişir."] },
@@ -18,32 +18,12 @@ const allQuestions = {
         { id: 1, text: "Büyük üçgenin küçük üçgene benzerlik oranı kaçtır?", image: "images/benzerlik1.png", options: ["1", "2", "3", "4"], answer: "2", hints: ["8/4 veya 10/5 oranına bakınız."] },
         { id: 2, text: "Görsele göre benzerlik oranı hangisi olabilir?", image: "images/benzerlik2.png", options: ["A) 1/2", "B) 2/3", "C) 3/4", "D) 4/5"], answer: "B) 2/3", hints: ["18/24 oranını sadeleştirin."] },
         { id: 3, text: "Kırmızı kartonun çevresinin uzunluğu kaç santimetredir?", image: "images/benzerlik3.png", options: ["A) 32", "B) 34", "C) 36", "D) 40"], answer: "C) 36", hints: ["15/12 oranını kullanarak çevreyi bulun."] },
-       { 
-        id: 4, 
-        text: "Verilen dik üçgenlere göre |DE| + |EF| toplamı kaç santimetredir?", 
-        image: "images/benzerlik4.png", 
-        options: ["A) 46", "B) 54", "C) 92", "D) 108"], 
-        answer: "C) 92", 
-        hints: ["Benzerlik oranı 3/2'dir. DE = 24, EF = 45 bulunur (Görseldeki değerlere göre tekrar hesapla)."] 
-    },
-    { 
-        id: 5, 
-        text: "Verilen benzerlik ilişkisine göre x + y toplamı kaçtır?", 
-        image: "images/benzerlik5.png", 
-        options: ["A) 28", "B) 24", "C) 22", "D) 20"], 
-        answer: "A) 28", 
-        hints: ["8/12 benzerlik oranını kullan: x = 18, y = 16 bulunur (8/12 = 12/x ve 8/12 = y/24)."] 
-    },
-    { 
-        id: 6, 
-        text: "Kırmızı ve sarı bölgelerin benzer olması için en az kaç tane birim kare sarıya boyanmalıdır?", 
-        image: "images/benzerlik6.png", 
-        options: ["A) 9", "B) 10", "C) 12", "D) 16"], 
-        answer: "C) 12", 
-        hints: ["Kırmızı bölge 3x4'lük bir alan. Benzerlik oranına göre sarı bölgeyi oluşturun."] 
-    }
+        { id: 4, text: "Verilen dik üçgenlere göre |DE| + |EF| toplamı kaç santimetredir?", image: "images/benzerlik4.png", options: ["A) 46", "B) 54", "C) 92", "D) 108"], answer: "C) 92", hints: ["Benzerlik oranından DE=24, EF=45 bulunur."] },
+        { id: 5, text: "Verilen benzerlik ilişkisine göre x + y toplamı kaçtır?", image: "images/benzerlik5.png", options: ["A) 28", "B) 24", "C) 22", "D) 20"], answer: "A) 28", hints: ["8/12 oranını kullanın."] },
+        { id: 6, text: "Kırmızı ve sarı bölgelerin benzer olması için en az kaç tane birim kare sarıya boyanmalıdır?", image: "images/benzerlik6.png", options: ["A) 9", "B) 10", "C) 12", "D) 16"], answer: "C) 12", hints: ["Kırmızı bölge 3x4'lük. Oran kurun."] },
         { id: 7, text: "Çubuk ile duvar arasındaki uzaklık (x) kaç cm'dir?", image: "images/benzerlik7.png", options: ["A) 150", "B) 200", "C) 250", "D) 300"], answer: "B) 200", hints: ["50 / (50+x) = 24 / 120"] }
-    ]
+    ],
+    esitsizlik: [], "aci-kenar": [], pisagor: []
 };
 
 let currentQuestions = [];
@@ -61,7 +41,7 @@ window.showInfoScreen = function(topic) {
     document.getElementById("image-container").innerHTML = `
         <div style="text-align:center;">
             <img src="${infoImg}" style="width:100%; border-radius:15px; margin-bottom:15px; border: 2px solid var(--primary);">
-            <button class="btn-primary" onclick="window.startQuiz('${topic}')" style="width:100%;">Sorulara Geç! 🚀</button>
+            <button class="btn-primary" onclick="window.startQuiz('${topic}')">Sorulara Geç! 🚀</button>
         </div>`;
     document.getElementById("question-text").innerText = "Bilgi Ekranı";
     document.getElementById("options-container").innerHTML = "";

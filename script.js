@@ -149,3 +149,25 @@ function animateFold(type) {
         }, 100);
     }
 }
+// --- BİLGİ EKRANI SİSTEMİ ---
+function showInfoScreen(topic) {
+    // 1. Konuya göre resmi belirle
+    const infoImg = (topic === 'eslik') ? "images/eslikbilgi.png" : "images/benzerlikbilgi.png";
+    const title = (topic === 'eslik') ? "Eşlik Bilgilendirme" : "Benzerlik Bilgilendirme";
+    
+    // 2. Diğer alanları gizle, quiz alanını aç
+    document.getElementById("selection-area").classList.add("hidden");
+    document.getElementById("quiz-area").classList.remove("hidden");
+    
+    // 3. Resim kutusuna Bilgi Görselini ve "Atla" butonunu yerleştir
+    document.getElementById("question-text").innerText = title;
+    document.getElementById("image-container").innerHTML = `
+        <div style="text-align:center;">
+            <img src="${infoImg}" style="width:100%; border-radius:15px; margin-bottom:15px; border: 2px solid var(--primary);">
+            <button class="btn-primary" onclick="startQuiz('${topic}')" style="width:100%;">Anladım, Sorulara Geç! 🚀</button>
+        </div>`;
+    
+    // 4. Şıkları temizle (Soru başlamadığı için)
+    document.getElementById("options-container").innerHTML = "";
+    document.getElementById("next-btn").classList.add("hidden");
+}

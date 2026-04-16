@@ -39,7 +39,7 @@
                     </div>
                 </div>
 
-                <div class="glass-card" onclick="startQuiz('eslik')" style="background: linear-gradient(135deg, rgba(167, 139, 250, 0.2), rgba(245, 158, 11, 0.2));">
+                <div class="glass-card" onclick="openTopicSelection()" style="background: linear-gradient(135deg, rgba(167, 139, 250, 0.2), rgba(245, 158, 11, 0.2));">
     <span style="font-size: 40px; margin-bottom: 20px;">🔀</span>
     <h3 style="font-family:'Space Grotesk',sans-serif; margin:0;">Eşlik ve Benzerlik</h3>
     <p style="font-size: 12px; color: var(--on-surface-variant);">Şekillerin benzerlik sırları...</p>
@@ -55,7 +55,18 @@
                     </div>
                 </div>
             </div>
-
+<div id="selection-area" class="hidden glass-card" style="margin-top: 50px; text-align: center;">
+    <h2 style="font-family:'Space Grotesk',sans-serif;">Ünite Seçiniz</h2>
+    <div class="grid" style="grid-template-columns: 1fr 1fr; gap: 20px;">
+        <div class="glass-card" onclick="showInfoScreen('eslik')" style="border:1px solid var(--primary);">
+            <h3>📐 Eşlik</h3>
+        </div>
+        <div class="glass-card" onclick="showInfoScreen('benzerlik')" style="border:1px solid var(--secondary);">
+            <h3>🔺 Benzerlik</h3>
+        </div>
+    </div>
+    <button onclick="location.reload()" style="margin-top: 20px; background: none; border: none; color: gray; cursor: pointer;">✖ Vazgeç</button>
+</div>
             <footer>
                 Matematik Öğretmeni <strong>Esra İbiş</strong> tarafından cıvıl cıvıl hazırlandı ✨
             </footer>
